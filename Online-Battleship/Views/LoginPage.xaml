@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Online_Battleship.Views.LoginPage"
+             >
+    <Grid>
+        <Image Source="background.png" Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill" />
+        <Image Source="battleship_logo.png" WidthRequest="500" HorizontalOptions="Center" VerticalOptions="Start" Margin="0,30,0,0"/>
+        <Border BackgroundColor="Aqua" WidthRequest="500" HeightRequest="315" HorizontalOptions="Center" VerticalOptions="Center" Padding="10,10,10,10" >
+            <StackLayout>
+                <Label Text="Login" FontSize="Header" HorizontalOptions="Center" Margin="0,0,0,20" />
+                <Entry x:Name="emailEntry" Placeholder="Email" HorizontalOptions="Center" TextColor="Black" BackgroundColor="White" WidthRequest="300" Margin="0,0,0,10" />
+                <Entry x:Name="passwordEntry" Placeholder="Password" HorizontalOptions="Center" TextColor="Black" IsPassword="True" BackgroundColor="White" WidthRequest="300" Margin="0,0,0,3" />
+                <Label Text="Don't have an account? " TextColor="Black" Margin="90,0,0,0" />
+                <Button x:Name="butCreateAccount" Text="Create account" WidthRequest="130" BackgroundColor="Transparent" TextColor="Red" Margin="74,-10,0,5" HorizontalOptions="Start" Clicked="butCreateAccount_Clicked" />
+                <Button x:Name="butLogin" Text="Login" HorizontalOptions="Center" BackgroundColor="White" WidthRequest="150" Clicked="butLogin_Clicked" />
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

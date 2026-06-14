@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{429F903C-DC9E-EDE7-1299-37E51A95EBB6}|Online-Battleship\\Online-Battleship.csproj|c:\\users\\ficobs\\source\\repos\\online-battleship\\online-battleship\\online-battleship\\views\\registerpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{429F903C-DC9E-EDE7-1299-37E51A95EBB6}|Online-Battleship\\Online-Battleship.csproj|solutionrelative:online-battleship\\views\\registerpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{429F903C-DC9E-EDE7-1299-37E51A95EBB6}|Online-Battleship\\Online-Battleship.csproj|c:\\users\\ficobs\\source\\repos\\online-battleship\\online-battleship\\online-battleship\\views\\registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{429F903C-DC9E-EDE7-1299-37E51A95EBB6}|Online-Battleship\\Online-Battleship.csproj|solutionrelative:online-battleship\\views\\registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{429F903C-DC9E-EDE7-1299-37E51A95EBB6}|Online-Battleship\\Online-Battleship.csproj|c:\\users\\ficobs\\source\\repos\\online-battleship\\online-battleship\\online-battleship\\models\\userslist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{429F903C-DC9E-EDE7-1299-37E51A95EBB6}|Online-Battleship\\Online-Battleship.csproj|solutionrelative:online-battleship\\models\\userslist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{429F903C-DC9E-EDE7-1299-37E51A95EBB6}|Online-Battleship\\Online-Battleship.csproj|c:\\users\\ficobs\\source\\repos\\online-battleship\\online-battleship\\online-battleship\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{429F903C-DC9E-EDE7-1299-37E51A95EBB6}|Online-Battleship\\Online-Battleship.csproj|solutionrelative:online-battleship\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\Online-Battleship\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Online-Battleship\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\Online-Battleship\\Models\\User.cs",
+              "RelativeToolTip": "Online-Battleship\\Models\\User.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAvwBYAAAB5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T16:18:20.079Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UsersList.cs",
+              "DocumentMoniker": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\Online-Battleship\\Models\\UsersList.cs",
+              "RelativeDocumentMoniker": "Online-Battleship\\Models\\UsersList.cs",
+              "ToolTip": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\Online-Battleship\\Models\\UsersList.cs",
+              "RelativeToolTip": "Online-Battleship\\Models\\UsersList.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T16:28:45.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RegisterPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\Online-Battleship\\Views\\RegisterPage.xaml.cs",
+              "RelativeDocumentMoniker": "Online-Battleship\\Views\\RegisterPage.xaml.cs",
+              "ToolTip": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\Online-Battleship\\Views\\RegisterPage.xaml.cs",
+              "RelativeToolTip": "Online-Battleship\\Views\\RegisterPage.xaml.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAzwA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T16:02:07.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RegisterPage.xaml",
+              "DocumentMoniker": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\Online-Battleship\\Views\\RegisterPage.xaml",
+              "RelativeDocumentMoniker": "Online-Battleship\\Views\\RegisterPage.xaml",
+              "ToolTip": "C:\\Users\\ficoBS\\source\\repos\\Online-Battleship\\Online-Battleship\\Online-Battleship\\Views\\RegisterPage.xaml",
+              "RelativeToolTip": "Online-Battleship\\Views\\RegisterPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-06-14T16:01:11.461Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
