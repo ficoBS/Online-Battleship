@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Online_Battleship.Views.RegisterPage"
-             Title="RegisterPage">
-    
+             x:Class="Online_Battleship.Views.RegisterPage">
     <Grid>
-        <Image Source="background.png" Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill" />
-        <Image Source="battleship_logo.png" WidthRequest="500" HorizontalOptions="Center" VerticalOptions="Start" Margin="0,30,0,0"/>
-        <Border BackgroundColor="Aqua" WidthRequest="500" HeightRequest="470" HorizontalOptions="Center" VerticalOptions="Center" Padding="10,10,10,10" Margin="0,160,0,0" >
-            <StackLayout>
-                <Label Text="Register" FontSize="Header" HorizontalOptions="Center" Margin="0,0,0,20" />
-                <Entry x:Name="usernameEntry" Placeholder="Username" HorizontalOptions="Center" TextColor="Black" BackgroundColor="White" WidthRequest="300" Margin="0,0,0,10" />
-                <Entry x:Name="emailEntry" Placeholder="Email" HorizontalOptions="Center" TextColor="Black" BackgroundColor="White" WidthRequest="300" Margin="0,0,0,10" />
-                <Entry x:Name="passwordEntry" Placeholder="Password" HorizontalOptions="Center" TextColor="Black" IsPassword="True" BackgroundColor="White" WidthRequest="300" Margin="0,0,0,10" />
-                <Entry x:Name="passwordEntry2" Placeholder="Repear password" HorizontalOptions="Center" TextColor="Black" IsPassword="True" BackgroundColor="White" WidthRequest="300" Margin="0,0,0,10" />
-                <Label Text="Date of birth:" Margin="90,0,0,0" TextColor="Black" />
-                <DatePicker x:Name="dateOfBirth" HorizontalOptions="Center" TextColor="Black" BackgroundColor="White" WidthRequest="300" Margin="0,0,0,30" Format="dd-MM-yyyy" />
-                <Button x:Name="butRegister" Text="Register" HorizontalOptions="Center" BackgroundColor="White" WidthRequest="150" Clicked="butRegister_Clicked" />
+        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
+        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}" HorizontalOptions="Center"
+               VerticalOptions="Start" />
+
+        <Border BackgroundColor="#CC000000" WidthRequest="{OnPlatform WinUI=420, Android=340}" VerticalOptions="Center"
+                HorizontalOptions="Center" Padding="25,15,25,25">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15" />
+            </Border.StrokeShape>
+            <Border.Stroke>
+                <SolidColorBrush Color="Transparent" />
+            </Border.Stroke>
+
+            <StackLayout Spacing="10">
+                <Label Text="Register" FontSize="Header" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
+                <Entry x:Name="usernameEntry" BackgroundColor="White" TextColor="Black" Placeholder="Username"
+                       ReturnType="Next" />
+                <Entry x:Name="emailEntry" BackgroundColor="White" TextColor="Black" Placeholder="Email"
+                       ReturnType="Next" Keyboard="Email" />
+                <Entry x:Name="passwordEntry1" BackgroundColor="White" TextColor="Black" Placeholder="Password"
+                       ReturnType="Next" IsPassword="True" />
+                <Entry x:Name="passwordEntry2" BackgroundColor="White" TextColor="Black" Placeholder="Repeat password"
+                       ReturnType="Next" IsPassword="True" />
+                <Label Text="Date of birth:" TextColor="White" Margin="0,5,0,0" />
+                <DatePicker x:Name="birthPicker" BackgroundColor="white" TextColor="Black" Format="dd-MM-yyyy" />
+
+                <Button x:Name="butRegister" Text="Register" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
+                        FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butRegister_Clicked" />
             </StackLayout>
         </Border>
     </Grid>

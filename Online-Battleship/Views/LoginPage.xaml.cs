@@ -7,14 +7,13 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 	}
 
-    private void butCreateAccount_Clicked(object sender, EventArgs e)
+    private async void butCreateAccount_Clicked(object sender, EventArgs e)
     {
-		Shell.Current.GoToAsync(nameof(RegisterPage));
+        await Shell.Current.GoToAsync("//RegisterPage");
     }
 
-    private void butLogin_Clicked(object sender, EventArgs e)
+    private async void butLogin_Clicked(object sender, EventArgs e)
     {
-        string email = emailEntry.Text;
-        string password = passwordEntry.Text;
+        await Shell.Current.GoToAsync("//MainPage");
     }
 }

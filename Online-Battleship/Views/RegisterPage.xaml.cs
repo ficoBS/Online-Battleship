@@ -7,9 +7,8 @@ public partial class RegisterPage : ContentPage
 		InitializeComponent();
 	}
 
-    private void butRegister_Clicked(object sender, EventArgs e)
+    private async void butRegister_Clicked(object sender, EventArgs e)
     {
-		
-		
+        await Shell.Current.GoToAsync("//LoginPage");
     }
 }
