@@ -1,0 +1,10 @@
+<api type="debug" assembly-name="Online-Battleship" mvid="a162d0de508e405baecd62ba72b0f573">
+  <java-to-managed>
+    <entry java-name="crc64de9922757cab4e97/MainActivity" managed-name="Online_Battleship.MainActivity, Online-Battleship" managed-type-token-id="33554441" />
+    <entry java-name="crc64de9922757cab4e97/MainApplication" managed-name="Online_Battleship.MainApplication, Online-Battleship" managed-type-token-id="33554442" />
+  </java-to-managed>
+  <managed-to-java>
+    <entry java-name="crc64de9922757cab4e97/MainActivity" managed-name="Online_Battleship.MainActivity, Online-Battleship" managed-type-token-id="33554441" />
+    <entry java-name="crc64de9922757cab4e97/MainApplication" managed-name="Online_Battleship.MainApplication, Online-Battleship" managed-type-token-id="33554442" />
+  </managed-to-java>
+</api>

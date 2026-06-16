@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Online_Battleship.Views.MatchPage">
+    <Grid>
+        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
+        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}" HorizontalOptions="Center"
+               VerticalOptions="Start" />
+
+        <Border BackgroundColor="#CC000000" WidthRequest="{OnPlatform WinUI=200, Android=200}" VerticalOptions="Center"
+                HorizontalOptions="Center" Padding="25,25,25,25">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15" />
+            </Border.StrokeShape>
+            <Border.Stroke>
+                <SolidColorBrush Color="Transparent" />
+            </Border.Stroke>
+
+            <VerticalStackLayout>
+                <ActivityIndicator IsRunning="True" Color="White" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="50" HeightRequest="50" />
+                <Label Text="Looking for players" TextColor="White" HorizontalOptions="Center" />
+                
+                <Button x:Name="butCancel" Text="Cancel" BackgroundColor="Black" TextColor="Red" FontSize="20"
+                        FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butCancel_Clicked">
+                    <Button.BorderColor>
+                        <Color>Red</Color>
+                    </Button.BorderColor>
+                    <Button.BorderWidth>2</Button.BorderWidth>
+                </Button>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

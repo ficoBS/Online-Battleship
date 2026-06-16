@@ -22,7 +22,9 @@ namespace Online_Battleship
 #if WINDOWS
             window.HandlerChanged += (s, e) =>
             {
-                var nativeWindow = window.Handler.PlatformView as Microsoft.UI.Xaml.Window;
+                if (window.Handler?.PlatformView is not Microsoft.UI.Xaml.Window nativeWindow)
+                    return;
+
                 var hwnd = WindowNative.GetWindowHandle(nativeWindow);
                 var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
                 var appWindow = AppWindow.GetFromWindowId(windowId);
