@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Online-Battleship")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+8ffd5335360c38dac8ec616ff476caf08d866af8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+3aa887e99eb9f2bfb60e6d94b5971bf06b6a845d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Online-Battleship")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Online-Battleship")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

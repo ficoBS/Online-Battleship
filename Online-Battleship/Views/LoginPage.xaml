@@ -31,8 +31,17 @@
                     </Label>
                 </StackLayout>
 
-                <Button x:Name="butLogin" Text="Login" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
-                        FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butLogin_Clicked" />
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="0,20,0,0">
+                    <Button x:Name="butLeave" Text="Leave" FontAttributes="Bold" BackgroundColor="Black" 
+                            TextColor="Red" FontSize="20" WidthRequest="150" CornerRadius="10" IsVisible="{OnPlatform WinUI=True, Android=False}" Clicked="butLeave_Clicked" >
+                        <Button.BorderColor>
+                            <Color>Red</Color>
+                        </Button.BorderColor>
+                        <Button.BorderWidth>2</Button.BorderWidth>
+                    </Button>
+                    <Button x:Name="butLogin" Text="Login" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="butLogin_Clicked" WidthRequest="150" />
+                </HorizontalStackLayout>
             </StackLayout>
         </Border>
     </Grid>

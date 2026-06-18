@@ -29,8 +29,13 @@
                 <Label Text="Date of birth:" TextColor="White" Margin="0,5,0,0" />
                 <DatePicker x:Name="birthPicker" BackgroundColor="white" TextColor="Black" Format="dd-MM-yyyy" />
 
-                <Button x:Name="butRegister" Text="Register" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
-                        FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butRegister_Clicked" />
+                <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                    <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
+                            FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butBack_Clicked" WidthRequest="150" />
+                    <Button x:Name="butRegister" Text="Register" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
+                            FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butRegister_Clicked" WidthRequest="150" />
+                </HorizontalStackLayout>
+                
             </StackLayout>
         </Border>
     </Grid>

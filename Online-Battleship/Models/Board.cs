@@ -6,5 +6,6 @@ namespace Online_Battleship.Models
 {
     public class Board
     {
+        
     }
 }
