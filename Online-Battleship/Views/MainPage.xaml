@@ -20,11 +20,11 @@
                 <Button x:Name="butFindMatch" Text="Find Match" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
                         TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butFindMatch_Clicked" />
                 <Button x:Name="butPlayers" Text="Find players" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
-                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" />
+                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butPlayers_Clicked" />
                 <Button x:Name="butLeaderboard" Text="Leaderboard" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
-                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" />
+                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butLeaderboard_Clicked" />
                 <Button x:Name="butHistory" Text="Match history" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
-                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" />
+                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butHistory_Clicked" />
 
                 <StackLayout Orientation="Horizontal" Padding="0" HorizontalOptions="Center" Margin="0,20,0,0" Spacing="20">
                     <Button x:Name="butLeave" Text="Leave" FontSize="20" FontAttributes="Bold" BackgroundColor="Black" 

@@ -23,4 +23,20 @@
     <ShellContent
     ContentTemplate="{DataTemplate views:MatchPage}"
     Route="MatchPage" />
+
+    <ShellContent
+    ContentTemplate="{DataTemplate views:GamePage}"
+    Route="GamePage" />
+    
+    <ShellContent
+    ContentTemplate="{DataTemplate views:PlayersPage}"
+    Route="PlayersPage" />
+
+    <ShellContent
+    ContentTemplate="{DataTemplate views:LeaderboardPage}"
+    Route="LeaderboardPage" />
+
+    <ShellContent
+    ContentTemplate="{DataTemplate views:MatchHistoryPage}"
+    Route="MatchHistoryPage" />
 </Shell>

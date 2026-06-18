@@ -12,6 +12,10 @@ namespace Online_Battleship
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(MatchPage), typeof(MatchPage));
+            Routing.RegisterRoute(nameof(GamePage), typeof(GamePage));
+            Routing.RegisterRoute(nameof(PlayersPage), typeof(PlayersPage));
+            Routing.RegisterRoute(nameof(LeaderboardPage), typeof(LeaderboardPage));
+            Routing.RegisterRoute(nameof(MatchHistoryPage), typeof(MatchHistoryPage));
         }
     }
 }

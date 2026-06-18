@@ -67,6 +67,26 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[E:/Projects/Online-Battleship/Online-Battleship/Views/GamePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Online_Battleship.Views.GamePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\GamePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\GamePage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[E:/Projects/Online-Battleship/Online-Battleship/Views/LeaderboardPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Online_Battleship.Views.LeaderboardPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\LeaderboardPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\LeaderboardPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [E:/Projects/Online-Battleship/Online-Battleship/Views/LoginPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Online_Battleship.Views.LoginPage.xaml
@@ -87,11 +107,31 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[E:/Projects/Online-Battleship/Online-Battleship/Views/MatchHistoryPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Online_Battleship.Views.MatchHistoryPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\MatchHistoryPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\MatchHistoryPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [E:/Projects/Online-Battleship/Online-Battleship/Views/MatchPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Online_Battleship.Views.MatchPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\MatchPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\MatchPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[E:/Projects/Online-Battleship/Online-Battleship/Views/PlayersPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Online_Battleship.Views.PlayersPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\PlayersPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\PlayersPage.xaml
 build_metadata.AdditionalFiles.Inflator = SourceGen
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 

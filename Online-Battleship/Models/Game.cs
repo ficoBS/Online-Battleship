@@ -6,7 +6,6 @@ namespace Online_Battleship.Models
 {
     public class Game
     {
-        public int id {  get; set; }
 
     }
 }
