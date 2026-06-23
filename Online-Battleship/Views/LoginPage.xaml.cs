@@ -1,28 +1,52 @@
+using Online_Battleship.Services;
+
 namespace Online_Battleship.Views;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage()
-	{
-		InitializeComponent();
-	}
-
-    private void clearEntrys()
+    public LoginPage()
     {
-        emailEntry.Text = "";
-        passwordEntry.Text = "";
-    }
-
-    private async void butCreateAccount_Clicked(object sender, EventArgs e)
-    {
-        clearEntrys();
-        await Shell.Current.GoToAsync("//RegisterPage");
+        InitializeComponent();
     }
 
     private async void butLogin_Clicked(object sender, EventArgs e)
     {
-        clearEntrys();
+        string email = emailEntry.Text?.Trim();
+        string password = passwordEntry.Text;
+
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        {
+            await DisplayAlert("Error", "Please fill in all fields", "OK");
+            return;
+        }
+
+        butLogin.IsEnabled = false;
+        butLogin.Text = "Logging in...";
+
+        var (success, message, userId, username) = await SessionService.Api.Login(email, password);
+
+        if (!success)
+        {
+            await DisplayAlert("Error", message, "OK");
+            butLogin.IsEnabled = true;
+            butLogin.Text = "Login";
+            return;
+        }
+
+        SessionService.UserId = userId;
+        SessionService.Username = username;
+
+        await SessionService.Hub.Connect(userId);
+
         await Shell.Current.GoToAsync("//MainPage");
+
+        butLogin.IsEnabled = true;
+        butLogin.Text = "Login";
+    }
+
+    private async void butCreateAccount_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//RegisterPage");
     }
 
     private void butLeave_Clicked(object sender, EventArgs e)
