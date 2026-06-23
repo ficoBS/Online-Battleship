@@ -17,6 +17,8 @@
             </Border.Stroke>
 
             <VerticalStackLayout Spacing="10">
+                <Label x:Name="welcomeLabel" Text="Welcome!" TextColor="White" FontSize="20" 
+                        FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" />
                 <Button x:Name="butFindMatch" Text="Find Match" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
                         TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butFindMatch_Clicked" />
                 <Button x:Name="butPlayers" Text="Find players" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 

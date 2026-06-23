@@ -19,8 +19,37 @@
             <VerticalStackLayout Spacing="15">
                 <Label Text="Leaderboard" FontSize="Header" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
 
-                <CollectionView>
-
+                <CollectionView x:Name="leaderboardList" HeightRequest="300">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="40,*,Auto" Padding="0,8">
+                                <Label Grid.Column="0" TextColor="Gold" FontAttributes="Bold" FontSize="16"
+                       VerticalOptions="Center" />
+                                <Label Grid.Column="1" Text="{Binding Username}" TextColor="White" 
+                       FontAttributes="Bold" FontSize="16" VerticalOptions="Center" />
+                                <StackLayout Grid.Column="2" VerticalOptions="Center">
+                                    <Label TextColor="Gray" FontSize="12" HorizontalOptions="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="W: " TextColor="Gray" />
+                                                <Span Text="{Binding Wins}" TextColor="Green" />
+                                                <Span Text="  L: " TextColor="Gray" />
+                                                <Span Text="{Binding Losses}" TextColor="Red" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label FontSize="12" HorizontalOptions="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Points: " TextColor="Gray" />
+                                                <Span Text="{Binding Points}" TextColor="Gold" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
                 </CollectionView>
 
                 <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"

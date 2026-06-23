@@ -19,8 +19,32 @@
             <VerticalStackLayout Spacing="15">
                 <Label Text="Match History" FontSize="Header" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
 
-                <CollectionView>
-
+                <CollectionView x:Name="historyList" HeightRequest="300">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowDefinitions="Auto,Auto" Padding="0,8">
+                                <Label Grid.Row="0" TextColor="White" FontAttributes="Bold" FontSize="14">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Player1Username}" TextColor="LightBlue" />
+                                            <Span Text=" vs " TextColor="White" />
+                                            <Span Text="{Binding Player2Username}" TextColor="LightBlue" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Grid.Row="1" FontSize="12">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Winner: " TextColor="Gray" />
+                                            <Span Text="{Binding WinnerUsername}" TextColor="Gold" />
+                                            <Span Text="  " />
+                                            <Span Text="{Binding StartedAt, StringFormat='{0:dd/MM/yyyy}'}" TextColor="Gray" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
                 </CollectionView>
 
                 <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"

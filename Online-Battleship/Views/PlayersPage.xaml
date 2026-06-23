@@ -18,9 +18,30 @@
 
             <VerticalStackLayout Spacing="15">
                 <Label Text="Players" FontSize="Header" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
-                
-                <CollectionView>
-                    
+
+                <CollectionView x:Name="playersList" HeightRequest="300">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,Auto" Padding="0,5">
+                                <StackLayout Grid.Column="0">
+                                    <Label Text="{Binding Username}" TextColor="White" FontAttributes="Bold" FontSize="16" />
+                                    <Label TextColor="Gray" FontSize="12">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="W: " TextColor="Gray" />
+                                                <Span Text="{Binding Wins}" TextColor="Green" />
+                                                <Span Text="  L: " TextColor="Gray" />
+                                                <Span Text="{Binding Losses}" TextColor="Red" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                                <Button Grid.Column="1" Text="Challenge" BackgroundColor="LightBlue" TextColor="Black"
+                        FontAttributes="Bold" CornerRadius="8" Clicked="OnChallengeClicked"
+                        IsEnabled="{Binding IsOnline}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
                 </CollectionView>
 
                 <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
