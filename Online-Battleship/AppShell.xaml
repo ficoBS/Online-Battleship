@@ -25,6 +25,10 @@
     Route="MatchPage" />
 
     <ShellContent
+    ContentTemplate="{DataTemplate views:ShipPlacementPage}"
+    Route="ShipPlacementPage" />
+    
+    <ShellContent
     ContentTemplate="{DataTemplate views:GamePage}"
     Route="GamePage" />
     

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Online_Battleship.Views.ShipPlacementPage"
+             BackgroundColor="Black">
+    <Grid>
+        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
+
+        <Grid ColumnDefinitions="300,*" RowDefinitions="Auto,*,Auto" Padding="20">
+
+            <!-- ship list - left -->
+            <Border Grid.Column="0" Grid.Row="1" BackgroundColor="#CC000000" Padding="15" Margin="0,0,10,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Place Your Ships" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+
+                    <Button x:Name="butCarrier" Text="Carrier (5)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
+                    <Button x:Name="butBattleship" Text="Battleship (4)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
+                    <Button x:Name="butCruiser" Text="Cruiser (3)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
+                    <Button x:Name="butSubmarine" Text="Submarine (3)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
+                    <Button x:Name="butDestroyer" Text="Destroyer (2)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
+
+                    <Button x:Name="butRotate" Text="Rotate: Horizontal" BackgroundColor="#444" TextColor="White"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="butRotate_Clicked" Margin="0,20,0,0" />
+
+                    <Button x:Name="butReady" Text="Ready!" BackgroundColor="Green" TextColor="White"
+                            FontAttributes="Bold" CornerRadius="10" IsEnabled="False" Clicked="butReady_Clicked" Margin="0,20,0,0" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- placement board - right -->
+            <VerticalStackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
+                <Label Text="Your Board" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Grid x:Name="placementBoard" RowSpacing="2" ColumnSpacing="2" />
+            </VerticalStackLayout>
+
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,5 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Online_Battleship.Views.GamePage">
-    
+             x:Class="Online_Battleship.Views.GamePage"
+             BackgroundColor="Black">
+    <Grid>
+        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
+
+        <Grid ColumnDefinitions="*,400,*" RowDefinitions="Auto,*,Auto">
+
+            <!-- my table - left -->
+            <VerticalStackLayout Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
+                <Label Text="Your Board" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Grid x:Name="playerBoard" RowSpacing="2" ColumnSpacing="2" />
+            </VerticalStackLayout>
+
+            <!-- middle - Chat/Log -->
+            <Border Grid.Column="1" Grid.Row="1" BackgroundColor="#CC000000" Padding="15" Margin="10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Battle Log" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <ScrollView HeightRequest="400">
+                        <VerticalStackLayout x:Name="chatLog" Spacing="5" />
+                    </ScrollView>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry x:Name="chatEntry" Placeholder="Type message..." BackgroundColor="White" TextColor="Black" Grid.Column="0" />
+                        <Button Text="Send" BackgroundColor="LightBlue" TextColor="Black" FontAttributes="Bold"
+                                Grid.Column="1" Clicked="butSend_Clicked" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- enemy table - right -->
+            <VerticalStackLayout Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
+                <Label Text="Enemy Board" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Grid x:Name="enemyBoard" RowSpacing="2" ColumnSpacing="2" />
+            </VerticalStackLayout>
+
+        </Grid>
+    </Grid>
 </ContentPage>
