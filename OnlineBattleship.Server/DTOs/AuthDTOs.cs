@@ -29,4 +29,14 @@
         public int Losses { get; set; }
         public int Points { get; set; }
     }
+
+    public class MatchHistoryDTO
+    {
+        public int MatchId { get; set; }
+        public string Player1Username { get; set; }
+        public string Player2Username { get; set; }
+        public string? WinnerUsername { get; set; }
+        public DateTime StartedAt { get; set; }
+        public DateTime? EndedAt { get; set; }
+    }
 }
