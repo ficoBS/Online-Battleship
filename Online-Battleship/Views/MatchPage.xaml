@@ -18,8 +18,7 @@
 
             <VerticalStackLayout>
                 <ActivityIndicator IsRunning="True" Color="White" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="50" HeightRequest="50" />
-                <Label Text="Looking for players" TextColor="White" HorizontalOptions="Center" />
-                
+                <Label x:Name="statusLabel" Text="Looking for players" TextColor="White" HorizontalOptions="Center" />
                 <Button x:Name="butCancel" Text="Cancel" BackgroundColor="Black" TextColor="Red" FontSize="20"
                         FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butCancel_Clicked">
                     <Button.BorderColor>
