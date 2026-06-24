@@ -1,4 +1,5 @@
 using Online_Battleship.Models;
+using Online_Battleship.Services;
 
 namespace Online_Battleship.Views;
 
@@ -11,21 +12,11 @@ public partial class ShipPlacementPage : ContentPage
     private ShipOrientation orientation = ShipOrientation.Horizontal;
     private HashSet<ShipType> placedShips = new HashSet<ShipType>();
 
-    private readonly Dictionary<string, ShipType> buttonShipMap;
-
     public ShipPlacementPage()
     {
         InitializeComponent();
         BuildBoard();
-
-        buttonShipMap = new Dictionary<string, ShipType>
-        {
-            { "butCarrier", ShipType.Carrier },
-            { "butBattleship", ShipType.Battleship },
-            { "butCruiser", ShipType.Cruiser },
-            { "butSubmarine", ShipType.Submarine },
-            { "butDestroyer", ShipType.Destroyer }
-        };
+        SessionService.Hub.OnOpponentReady += OnOpponentReady;
     }
 
     private void BuildBoard()
@@ -59,11 +50,18 @@ public partial class ShipPlacementPage : ContentPage
     private void ShipButton_Clicked(object sender, EventArgs e)
     {
         var btn = sender as Button;
-        if (buttonShipMap.TryGetValue(btn.AutomationId ?? btn.Text.Split(' ')[0], out ShipType type))
+        ShipType type = btn.Text switch
         {
-            if (placedShips.Contains(type)) return;
-            selectedShip = new Ship(type);
-        }
+            "Carrier (5)" => ShipType.Carrier,
+            "Battleship (4)" => ShipType.Battleship,
+            "Cruiser (3)" => ShipType.Cruiser,
+            "Submarine (3)" => ShipType.Submarine,
+            "Destroyer (2)" => ShipType.Destroyer,
+            _ => ShipType.Carrier
+        };
+
+        if (placedShips.Contains(type)) return;
+        selectedShip = new Ship(type);
     }
 
     private void butRotate_Clicked(object sender, EventArgs e)
@@ -75,16 +73,15 @@ public partial class ShipPlacementPage : ContentPage
         butRotate.Text = $"Rotate: {orientation}";
     }
 
-    private void OnCellClicked(int row, int col)
+    private async void OnCellClicked(int row, int col)
     {
         if (selectedShip == null) return;
 
-        selectedShip.Orientation = orientation;
         bool placed = board.PlaceShip(selectedShip, row, col, orientation);
 
         if (!placed)
         {
-            DisplayAlert("Invalid", "Cannot place ship here!", "OK");
+            await DisplayAlert("Invalid", "Cannot place ship here!", "OK");
             return;
         }
 
@@ -100,6 +97,22 @@ public partial class ShipPlacementPage : ContentPage
 
     private async void butReady_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("//GamePage");
+        butReady.IsEnabled = false;
+        butReady.Text = "Waiting for opponent...";
+        await SessionService.Hub.ShipsReady(SessionService.CurrentGameId);
+    }
+
+    private void OnOpponentReady()
+    {
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            await Shell.Current.GoToAsync("//GamePage");
+        });
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        SessionService.Hub.OnOpponentReady -= OnOpponentReady;
     }
 }

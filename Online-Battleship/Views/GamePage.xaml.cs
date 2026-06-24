@@ -1,4 +1,5 @@
 using Online_Battleship.Models;
+using Online_Battleship.Services;
 
 namespace Online_Battleship.Views;
 
@@ -7,12 +8,18 @@ public partial class GamePage : ContentPage
     private const int BoardSize = 10;
     private Button[,] playerButtons = new Button[BoardSize, BoardSize];
     private Button[,] enemyButtons = new Button[BoardSize, BoardSize];
+    private bool myTurn = false;
 
     public GamePage()
     {
         InitializeComponent();
         BuildBoard(playerBoard, playerButtons, isEnemy: false);
         BuildBoard(enemyBoard, enemyButtons, isEnemy: true);
+
+        SessionService.Hub.OnOpponentShot += OnOpponentShot;
+        SessionService.Hub.OnShotResult += OnShotResult;
+        SessionService.Hub.OnReceiveMessage += OnReceiveMessage;
+        SessionService.Hub.OnGameEnded += OnGameEnded;
     }
 
     private void BuildBoard(Grid grid, Button[,] buttons, bool isEnemy)
@@ -44,21 +51,101 @@ public partial class GamePage : ContentPage
         }
     }
 
-    private void OnEnemyCellClicked(int row, int col)
+    private async void OnEnemyCellClicked(int row, int col)
     {
-        // shooting logic will go here
+        if (!myTurn) return;
+
+        myTurn = false;
+        enemyButtons[row, col].IsEnabled = false;
+
+        await SessionService.Hub.Shoot(SessionService.CurrentGameId, row, col);
     }
 
-    private void butSend_Clicked(object sender, EventArgs e)
+    private void OnOpponentShot(int row, int col)
+    {
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            var cell = playerButtons[row, col];
+            bool isHit = cell.BackgroundColor == Colors.Gray;
+
+            if (isHit)
+            {
+                cell.BackgroundColor = Colors.Red;
+                AddLog($"Enemy hit at {(char)('A' + col)}{row + 1}!", Colors.Red);
+                await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Hit");
+            }
+            else
+            {
+                cell.BackgroundColor = Colors.White;
+                AddLog($"Enemy missed at {(char)('A' + col)}{row + 1}", Colors.Gray);
+                await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Miss");
+            }
+
+            myTurn = true;
+        });
+    }
+
+    private void OnShotResult(int row, int col, string result)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            if (result == "Hit")
+            {
+                enemyButtons[row, col].BackgroundColor = Colors.Red;
+                AddLog($"You hit at {(char)('A' + col)}{row + 1}!", Colors.Green);
+            }
+            else
+            {
+                enemyButtons[row, col].BackgroundColor = Colors.White;
+                AddLog($"You missed at {(char)('A' + col)}{row + 1}", Colors.Gray);
+            }
+        });
+    }
+
+    private void OnReceiveMessage(string username, string message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            var label = new Label
+            {
+                TextColor = username == SessionService.Username ? Colors.LightBlue : Colors.White
+            };
+            label.FormattedText = new FormattedString();
+            label.FormattedText.Spans.Add(new Span { Text = $"{username}: ", FontAttributes = FontAttributes.Bold, TextColor = label.TextColor });
+            label.FormattedText.Spans.Add(new Span { Text = message, TextColor = label.TextColor });
+            chatLog.Children.Add(label);
+        });
+    }
+
+    private void OnGameEnded(int winnerId)
+    {
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            string result = winnerId == SessionService.UserId ? "You Win!" : "You Lose!";
+            await DisplayAlert("Game Over", result, "OK");
+            await Shell.Current.GoToAsync("//MainPage");
+        });
+    }
+
+    private void AddLog(string message, Color color)
+    {
+        var label = new Label { Text = message, TextColor = color, FontSize = 12 };
+        chatLog.Children.Add(label);
+    }
+
+    private async void butSend_Clicked(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(chatEntry.Text)) return;
-
-        var label = new Label
-        {
-            Text = $"You: {chatEntry.Text}",
-            TextColor = Colors.LightBlue
-        };
-        chatLog.Children.Add(label);
+        await SessionService.Hub.SendMessage(SessionService.CurrentGameId, chatEntry.Text);
         chatEntry.Text = "";
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        SessionService.Hub.OnOpponentShot -= OnOpponentShot;
+        SessionService.Hub.OnShotResult -= OnShotResult;
+        SessionService.Hub.OnReceiveMessage -= OnReceiveMessage;
+        SessionService.Hub.OnGameEnded -= OnGameEnded;
     }
 }
