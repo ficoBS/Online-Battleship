@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Online_Battleship.Services;
 
 #if WINDOWS
 using Microsoft.UI;
@@ -13,6 +14,30 @@ namespace Online_Battleship
         public App()
         {
             InitializeComponent();
+            SessionService.Hub.OnChallengeReceived += OnChallengeReceived;
+            SessionService.Hub.OnChallengeRejected += OnChallengeRejected;
+        }
+
+        private void OnChallengeReceived(int challengerId, string username)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                bool accept = await Current.Windows[0].Page.DisplayAlert(
+                    "Challenge", $"{username} challenged you!", "Accept", "Reject");
+                if (accept)
+                    await SessionService.Hub.AcceptChallenge(challengerId);
+                else
+                    await SessionService.Hub.RejectChallenge(challengerId);
+            });
+        }
+
+        private void OnChallengeRejected()
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Current.Windows[0].Page.DisplayAlert(
+                    "Challenge", "Your challenge was rejected", "OK");
+            });
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

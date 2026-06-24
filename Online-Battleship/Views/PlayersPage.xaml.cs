@@ -18,7 +18,6 @@ public partial class PlayersPage : ContentPage
     private async Task LoadPlayers()
     {
         var players = await SessionService.Api.GetPlayers();
-
         playersList.ItemsSource = players;
     }
 
