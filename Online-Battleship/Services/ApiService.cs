@@ -6,7 +6,7 @@ namespace Online_Battleship.Services
     public class ApiService
     {
         private readonly HttpClient _client;
-        public static string BaseUrl = "http://localhost:5000";
+        public static string BaseUrl = "http://localhost:5205";
 
         public ApiService()
         {
