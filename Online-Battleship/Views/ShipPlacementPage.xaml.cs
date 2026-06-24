@@ -16,7 +16,6 @@ public partial class ShipPlacementPage : ContentPage
     {
         InitializeComponent();
         BuildBoard();
-        SessionService.Hub.OnOpponentReady += OnOpponentReady;
     }
 
     private void BuildBoard()
@@ -99,20 +98,7 @@ public partial class ShipPlacementPage : ContentPage
     {
         butReady.IsEnabled = false;
         butReady.Text = "Waiting for opponent...";
+        SessionService.PlayerBoard = board;
         await SessionService.Hub.ShipsReady(SessionService.CurrentGameId);
-    }
-
-    private void OnOpponentReady()
-    {
-        MainThread.BeginInvokeOnMainThread(async () =>
-        {
-            await Shell.Current.GoToAsync("//GamePage");
-        });
-    }
-
-    protected override void OnDisappearing()
-    {
-        base.OnDisappearing();
-        SessionService.Hub.OnOpponentReady -= OnOpponentReady;
     }
 }

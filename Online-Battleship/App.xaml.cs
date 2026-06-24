@@ -16,6 +16,17 @@ namespace Online_Battleship
             InitializeComponent();
             SessionService.Hub.OnChallengeReceived += OnChallengeReceived;
             SessionService.Hub.OnChallengeRejected += OnChallengeRejected;
+            SessionService.Hub.OnMatchFound += OnMatchFound;
+            SessionService.Hub.OnBothPlayersReady += OnBothPlayersReady;
+        }
+
+        private void OnMatchFound(string gameId, string player1, string player2)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                SessionService.CurrentGameId = gameId;
+                await Shell.Current.GoToAsync("//ShipPlacementPage");
+            });
         }
 
         private void OnChallengeReceived(int challengerId, string username)
@@ -37,6 +48,13 @@ namespace Online_Battleship
             {
                 await Current.Windows[0].Page.DisplayAlert(
                     "Challenge", "Your challenge was rejected", "OK");
+            });
+        }
+        private void OnBothPlayersReady()
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Shell.Current.GoToAsync("//GamePage");
             });
         }
 

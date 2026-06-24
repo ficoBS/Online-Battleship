@@ -15,11 +15,22 @@ public partial class GamePage : ContentPage
         InitializeComponent();
         BuildBoard(playerBoard, playerButtons, isEnemy: false);
         BuildBoard(enemyBoard, enemyButtons, isEnemy: true);
+        ShowPlayerShips();
 
         SessionService.Hub.OnOpponentShot += OnOpponentShot;
         SessionService.Hub.OnShotResult += OnShotResult;
         SessionService.Hub.OnReceiveMessage += OnReceiveMessage;
         SessionService.Hub.OnGameEnded += OnGameEnded;
+    }
+
+    private void ShowPlayerShips()
+    {
+        if (SessionService.PlayerBoard == null) return;
+
+        for (int row = 0; row < 10; row++)
+            for (int col = 0; col < 10; col++)
+                if (SessionService.PlayerBoard.Cells[row, col].State == Models.CellState.Ship)
+                    playerButtons[row, col].BackgroundColor = Colors.Gray;
     }
 
     private void BuildBoard(Grid grid, Button[,] buttons, bool isEnemy)
@@ -50,6 +61,8 @@ public partial class GamePage : ContentPage
             }
         }
     }
+
+
 
     private async void OnEnemyCellClicked(int row, int col)
     {

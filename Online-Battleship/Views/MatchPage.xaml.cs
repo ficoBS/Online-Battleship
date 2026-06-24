@@ -12,17 +12,13 @@ public partial class MatchPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        SessionService.Hub.OnMatchFound += OnMatchFound;
         SessionService.Hub.OnWaitingForOpponent += OnWaitingForOpponent;
-
         await SessionService.Hub.JoinMatchmaking(SessionService.UserId);
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        SessionService.Hub.OnMatchFound -= OnMatchFound;
         SessionService.Hub.OnWaitingForOpponent -= OnWaitingForOpponent;
     }
 

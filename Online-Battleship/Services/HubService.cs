@@ -20,6 +20,7 @@ namespace Online_Battleship.Services
         public event Action OnChallengeRejected;
         public event Action OnPlayerNotAvailable;
         public event Action<int, bool> OnPlayerStatusChanged;
+        public event Action OnBothPlayersReady;
 
         public async Task Connect(int userId)
         {
@@ -36,10 +37,9 @@ namespace Online_Battleship.Services
 
         private void RegisterHandlers()
         {
-            _connection.On<object>("MatchFound", (data) =>
+            _connection.On<string, string, string>("MatchFound", (gameId, player1, player2) =>
             {
-                var json = data.ToString();
-                OnMatchFound?.Invoke(json, "", "");
+                OnMatchFound?.Invoke(gameId, player1, player2);
             });
 
             _connection.On("WaitingForOpponent", () =>
@@ -68,6 +68,9 @@ namespace Online_Battleship.Services
 
             _connection.On("PlayerNotAvailable", () =>
                 OnPlayerNotAvailable?.Invoke());
+
+            _connection.On("BothPlayersReady", () =>
+                OnBothPlayersReady?.Invoke());
         }
 
         public async Task JoinMatchmaking(int userId) =>
