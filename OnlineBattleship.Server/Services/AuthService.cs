@@ -39,18 +39,19 @@ namespace OnlineBattleship.Server.Services
             return true;
         }
 
-        public async Task<User?> Login(LoginDTO dto)
+        public async Task<(User? user, string error)> Login(LoginDTO dto)
         {
             string hash = HashPassword(dto.Password);
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email && u.PasswordHash == hash);
 
-            if (user == null) return null;
+            if (user == null) return (null, "Invalid credentials");
+            if (user.IsOnline) return (null, "Account is already logged in");
 
             user.IsOnline = true;
             user.LastSeen = DateTime.Now;
             await _db.SaveChangesAsync();
 
-            return user;
+            return (user, "");
         }
 
         public async Task Logout(int userId)

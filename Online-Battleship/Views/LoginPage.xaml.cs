@@ -27,6 +27,7 @@ public partial class LoginPage : ContentPage
 
         if (!success)
         {
+            string errorMsg = string.IsNullOrEmpty(message) ? "Account is already logged in" : message;
             await DisplayAlert("Error", message, "OK");
             butLogin.IsEnabled = true;
             butLogin.Text = "Login";

@@ -142,12 +142,15 @@ public partial class GamePage : ContentPage
             await Shell.Current.GoToAsync("//MainPage");
         });
     }
-
     private void AddLog(string message, Color color)
     {
         var label = new Label { Text = message, TextColor = color, FontSize = 12 };
         chatLog.Children.Add(label);
-        chatScroll.ScrollToAsync(0, chatLog.Height, false);
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            await Task.Delay(100);
+            await chatScroll.ScrollToAsync(label, ScrollToPosition.End, true);
+        });
     }
 
     private async void butSend_Clicked(object sender, EventArgs e)

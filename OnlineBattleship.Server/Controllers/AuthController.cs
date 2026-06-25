@@ -26,14 +26,14 @@ namespace OnlineBattleship.Server.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO dto)
         {
-            var user = await _authService.Login(dto);
-            if (user == null) return Unauthorized(new { message = "Invalid credentials" });
+            var result = await _authService.Login(dto);
+            if (result.user == null) return Unauthorized(new { message = result.error });
 
             return Ok(new LoginResponseDTO
             {
-                UserId = user.Id,
-                Username = user.Username,
-                Token = user.Id.ToString()
+                UserId = result.user.Id,
+                Username = result.user.Username,
+                Token = result.user.Id.ToString()
             });
         }
 

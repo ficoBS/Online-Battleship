@@ -7,7 +7,10 @@ namespace Online_Battleship.Services
     {
         private readonly HttpClient _client;
         public static string BaseUrl = "http://localhost:5205";
-
+        private class ErrorResponse
+        {
+            public string Message { get; set; }
+        }
         public ApiService()
         {
             _client = new HttpClient();
@@ -25,7 +28,10 @@ namespace Online_Battleship.Services
                 });
 
                 if (!response.IsSuccessStatusCode)
-                    return (false, "Invalid credentials", 0, "");
+                {
+                    var error = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                    return (false, error?.Message ?? "Login failed", 0, "");
+                }
 
                 var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
                 return (true, "", result.UserId, result.Username);
