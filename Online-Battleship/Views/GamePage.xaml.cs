@@ -66,9 +66,9 @@ public partial class GamePage : ContentPage
 
     private async void OnEnemyCellClicked(int row, int col)
     {
-        if (!myTurn) return;
+        if (!SessionService.IsMyTurn) return;
 
-        myTurn = false;
+        SessionService.IsMyTurn = false;
         enemyButtons[row, col].IsEnabled = false;
 
         await SessionService.Hub.Shoot(SessionService.CurrentGameId, row, col);
@@ -78,14 +78,17 @@ public partial class GamePage : ContentPage
     {
         MainThread.BeginInvokeOnMainThread(async () =>
         {
+            var result = SessionService.PlayerBoard.ReceiveShot(row, col);
             var cell = playerButtons[row, col];
-            bool isHit = cell.BackgroundColor == Colors.Gray;
 
-            if (isHit)
+            if (result == Models.CellState.Hit)
             {
                 cell.BackgroundColor = Colors.Red;
                 AddLog($"Enemy hit at {(char)('A' + col)}{row + 1}!", Colors.Red);
                 await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Hit");
+
+                if (SessionService.PlayerBoard.AllShipsSunk)
+                    await SessionService.Hub.GameOver(SessionService.CurrentGameId, SessionService.OpponentId, SessionService.UserId);
             }
             else
             {
@@ -94,7 +97,7 @@ public partial class GamePage : ContentPage
                 await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Miss");
             }
 
-            myTurn = true;
+            SessionService.IsMyTurn = true;
         });
     }
 
@@ -144,6 +147,7 @@ public partial class GamePage : ContentPage
     {
         var label = new Label { Text = message, TextColor = color, FontSize = 12 };
         chatLog.Children.Add(label);
+        chatScroll.ScrollToAsync(0, chatLog.Height, false);
     }
 
     private async void butSend_Clicked(object sender, EventArgs e)

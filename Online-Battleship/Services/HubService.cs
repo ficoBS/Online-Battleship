@@ -9,7 +9,7 @@ namespace Online_Battleship.Services
         public bool IsConnected => _connection?.State == HubConnectionState.Connected;
 
         // events
-        public event Action<string, string, string> OnMatchFound;
+        public event Action<string, string, string, string, string> OnMatchFound;
         public event Action OnWaitingForOpponent;
         public event Action OnOpponentReady;
         public event Action<int, int> OnOpponentShot;
@@ -20,7 +20,7 @@ namespace Online_Battleship.Services
         public event Action OnChallengeRejected;
         public event Action OnPlayerNotAvailable;
         public event Action<int, bool> OnPlayerStatusChanged;
-        public event Action OnBothPlayersReady;
+        public event Action<bool> OnBothPlayersReady;
 
         public async Task Connect(int userId)
         {
@@ -37,9 +37,9 @@ namespace Online_Battleship.Services
 
         private void RegisterHandlers()
         {
-            _connection.On<string, string, string>("MatchFound", (gameId, player1, player2) =>
+            _connection.On<string, string, string, string, string>("MatchFound", (gameId, p1, p2, id1, id2) =>
             {
-                OnMatchFound?.Invoke(gameId, player1, player2);
+                OnMatchFound?.Invoke(gameId, p1, p2, id1, id2);
             });
 
             _connection.On("WaitingForOpponent", () =>
@@ -69,8 +69,8 @@ namespace Online_Battleship.Services
             _connection.On("PlayerNotAvailable", () =>
                 OnPlayerNotAvailable?.Invoke());
 
-            _connection.On("BothPlayersReady", () =>
-                OnBothPlayersReady?.Invoke());
+            _connection.On<bool>("BothPlayersReady", (isFirst) =>
+                OnBothPlayersReady?.Invoke(isFirst));
         }
 
         public async Task JoinMatchmaking(int userId) =>

@@ -14,6 +14,8 @@ namespace Online_Battleship.Services
         public static HubService Hub { get; private set; } = new HubService();
 
         public static Board PlayerBoard { get; set; }
+
+        public static bool IsMyTurn { get; set; }
         public static void Clear()
         {
             UserId = 0;
