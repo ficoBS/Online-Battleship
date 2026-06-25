@@ -5,7 +5,7 @@ namespace Online_Battleship.Services
     public class HubService
     {
         private HubConnection _connection;
-        public static string HubUrl = "http://localhost:5205/gamehub";
+        public static string HubUrl = $"{AppConfig.ServerUrl}/gamehub";
         public bool IsConnected => _connection?.State == HubConnectionState.Connected;
 
         // events
