@@ -21,7 +21,7 @@
                 </Border.StrokeShape>
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Battle Log" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
-                    <ScrollView HeightRequest="400">
+                    <ScrollView x:Name="chatScroll" HeightRequest="400">
                         <VerticalStackLayout x:Name="chatLog" Spacing="5" />
                     </ScrollView>
                     <Grid ColumnDefinitions="*,Auto">

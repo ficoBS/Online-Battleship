@@ -20,11 +20,21 @@ namespace Online_Battleship
             SessionService.Hub.OnBothPlayersReady += OnBothPlayersReady;
         }
 
-        private void OnMatchFound(string gameId, string player1, string player2)
+        private void OnMatchFound(string gameId, string player1, string player2, string id1, string id2)
         {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 SessionService.CurrentGameId = gameId;
+                if (player1 == SessionService.Username)
+                {
+                    SessionService.OpponentUsername = player2;
+                    SessionService.OpponentId = int.Parse(id2);
+                }
+                else
+                {
+                    SessionService.OpponentUsername = player1;
+                    SessionService.OpponentId = int.Parse(id1);
+                }
                 await Shell.Current.GoToAsync("//ShipPlacementPage");
             });
         }
@@ -50,10 +60,11 @@ namespace Online_Battleship
                     "Challenge", "Your challenge was rejected", "OK");
             });
         }
-        private void OnBothPlayersReady()
+        private void OnBothPlayersReady(bool isFirst)
         {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
+                SessionService.IsMyTurn = isFirst;
                 await Shell.Current.GoToAsync("//GamePage");
             });
         }

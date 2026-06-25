@@ -75,8 +75,9 @@ namespace OnlineBattleship.Server.Hubs
                 var user1 = await _db.Users.FindAsync(player1.userId);
                 var user2 = await _db.Users.FindAsync(player2.userId);
 
-                await Clients.Group(gameId).SendAsync("MatchFound", gameId, user1?.Username ?? "", user2?.Username ?? "");
-            }
+await Clients.Group(gameId).SendAsync("MatchFound", gameId, 
+    user1?.Username ?? "", user2?.Username ?? "",
+    player1.userId.ToString(), player2.userId.ToString());            }
             else
             {
                 await Clients.Caller.SendAsync("WaitingForOpponent");
@@ -96,22 +97,33 @@ namespace OnlineBattleship.Server.Hubs
         }
 
         private static Dictionary<string, int> _readyPlayers = new();
+        private static Dictionary<string, string> _firstPlayer = new();
 
         public async Task ShipsReady(string gameId)
         {
-            if (!_readyPlayers.ContainsKey(gameId))
-                _readyPlayers[gameId] = 0;
-
-            _readyPlayers[gameId]++;
+            lock (_readyPlayers)
+            {
+                if (!_readyPlayers.ContainsKey(gameId))
+                {
+                    _readyPlayers[gameId] = 0;
+                    _firstPlayer[gameId] = Context.ConnectionId;
+                }
+                _readyPlayers[gameId]++;
+            }
 
             if (_readyPlayers[gameId] >= 2)
             {
+                string firstConnectionId = _firstPlayer[gameId];
+                string secondConnectionId = Context.ConnectionId;
                 _readyPlayers.Remove(gameId);
-                await Clients.Group(gameId).SendAsync("BothPlayersReady");
+                _firstPlayer.Remove(gameId);
+
+                await Clients.Client(firstConnectionId).SendAsync("BothPlayersReady", true);
+                await Clients.Client(secondConnectionId).SendAsync("BothPlayersReady", false);
             }
             else
             {
-                await Clients.OthersInGroup(gameId).SendAsync("OpponentReady");
+                await Clients.Caller.SendAsync("OpponentReady");
             }
         }
 
@@ -205,7 +217,9 @@ namespace OnlineBattleship.Server.Hubs
             if (!_connectedUsers.TryGetValue(Context.ConnectionId, out int accepterId)) return;
             var user2 = await _db.Users.FindAsync(accepterId);
 
-            await Clients.Group(gameId).SendAsync("MatchFound", gameId, user1?.Username ?? "", user2?.Username ?? "");
+            await Clients.Group(gameId).SendAsync("MatchFound", gameId,
+                user1?.Username ?? "", user2?.Username ?? "",
+                challengerId.ToString(), accepterId.ToString());
         }
         public async Task RejectChallenge(int challengerId)
         {
