@@ -5,6 +5,11 @@ namespace Online_Battleship.Views;
 
 public partial class ShipPlacementPage : ContentPage
 {
+#if ANDROID
+    private int cellSize = 35;
+#else
+    private int cellSize = 30;
+#endif
     private const int BoardSize = 10;
     private Button[,] buttons = new Button[BoardSize, BoardSize];
     private Board board = new Board();
@@ -15,15 +20,19 @@ public partial class ShipPlacementPage : ContentPage
     private Dictionary<ShipType, (Button btn, Border badge)> shipControls;
     private static readonly Dictionary<ShipType, Color> shipColors = new()
     {
-        { ShipType.Carrier,    Color.FromArgb("#2E8B57") }, // green
-        { ShipType.Battleship, Color.FromArgb("#8B0000") }, // dark red
-        { ShipType.Cruiser,    Color.FromArgb("#FF8C00") }, // orange
-        { ShipType.Submarine,  Color.FromArgb("#4B0082") }, // purple
-        { ShipType.Destroyer,  Color.FromArgb("#008B8B") }, // teal
+        { ShipType.Carrier,    Color.FromArgb("#2E8B57") },
+        { ShipType.Battleship, Color.FromArgb("#8B0000") },
+        { ShipType.Cruiser,    Color.FromArgb("#FF8C00") },
+        { ShipType.Submarine,  Color.FromArgb("#4B0082") },
+        { ShipType.Destroyer,  Color.FromArgb("#008B8B") },
     };
-    public ShipPlacementPage()
+
+    private readonly IOrientationService _orientationService;
+
+    public ShipPlacementPage(IOrientationService orientationService)
     {
         InitializeComponent();
+        _orientationService = orientationService;
 
         shipControls = new Dictionary<ShipType, (Button, Border)>
         {
@@ -38,7 +47,14 @@ public partial class ShipPlacementPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        _orientationService.SetLandscape();
         resetBoard();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        _orientationService.SetPortrait();
     }
 
     private void resetBoard()
@@ -70,8 +86,8 @@ public partial class ShipPlacementPage : ContentPage
     {
         for (int i = 0; i < BoardSize; i++)
         {
-            placementBoard.RowDefinitions.Add(new RowDefinition { Height = 35 });
-            placementBoard.ColumnDefinitions.Add(new ColumnDefinition { Width = 35 });
+            placementBoard.RowDefinitions.Add(new RowDefinition { Height = cellSize });
+            placementBoard.ColumnDefinitions.Add(new ColumnDefinition { Width = cellSize });
         }
 
         for (int row = 0; row < BoardSize; row++)
@@ -166,6 +182,7 @@ public partial class ShipPlacementPage : ContentPage
             await DisplayAlert("Invalid", "Cannot place ship here!", "OK");
             return;
         }
+
         foreach (var cell in selectedShip.Cells)
             buttons[cell.Row, cell.Col].BackgroundColor = shipColors[selectedShip.Type];
 

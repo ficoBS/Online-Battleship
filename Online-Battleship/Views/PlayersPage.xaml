@@ -2,13 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Online_Battleship.Views.PlayersPage">
-    <Grid>
-        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
-        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}" HorizontalOptions="Center"
-               VerticalOptions="Start" />
+    <Grid RowDefinitions="Auto,*">
+        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"
+               Grid.RowSpan="2" />
 
-        <Border BackgroundColor="#CC000000" WidthRequest="{OnPlatform WinUI=420, Android=340}" VerticalOptions="Center"
-                HorizontalOptions="Center" Padding="25,15,25,25">
+        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}"
+               HorizontalOptions="Center" VerticalOptions="Start"
+               Grid.Row="0" Margin="0,20,0,0" />
+
+        <Border Grid.Row="1" BackgroundColor="#CC000000"
+                WidthRequest="{OnPlatform WinUI=420, Android=340}"
+                VerticalOptions="Center" HorizontalOptions="Center"
+                Padding="25,15,25,25" Margin="0,0,0,20">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="15" />
             </Border.StrokeShape>
@@ -17,14 +22,16 @@
             </Border.Stroke>
 
             <VerticalStackLayout Spacing="15">
-                <Label Text="Players" FontSize="Header" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
+                <Label Text="Players" FontSize="Header" FontAttributes="Bold"
+                       HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
 
                 <CollectionView x:Name="playersList" HeightRequest="300">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid ColumnDefinitions="*,Auto" Padding="0,5">
                                 <StackLayout Grid.Column="0">
-                                    <Label Text="{Binding Username}" TextColor="White" FontAttributes="Bold" FontSize="16" />
+                                    <Label Text="{Binding Username}" TextColor="White"
+                                           FontAttributes="Bold" FontSize="16" />
                                     <Label TextColor="Gray" FontSize="12">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -36,18 +43,17 @@
                                         </Label.FormattedText>
                                     </Label>
                                 </StackLayout>
-                                <Button Grid.Column="1" Text="Challenge" BackgroundColor="LightBlue" TextColor="Black"
-                        FontAttributes="Bold" CornerRadius="8" Clicked="OnChallengeClicked"
-                        IsEnabled="{Binding IsOnline}" />
+                                <Button Grid.Column="1" Text="Challenge" BackgroundColor="LightBlue"
+                                        TextColor="Black" FontAttributes="Bold" CornerRadius="8"
+                                        Clicked="OnChallengeClicked" IsEnabled="{Binding IsOnline}" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
-                        FontAttributes="Bold" CornerRadius="10" Clicked="butBack_Clicked" />
+                <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black"
+                        FontSize="20" FontAttributes="Bold" CornerRadius="10" Clicked="butBack_Clicked" />
             </VerticalStackLayout>
-
         </Border>
     </Grid>
 </ContentPage>

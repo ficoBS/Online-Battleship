@@ -1,14 +1,20 @@
-<?xml version="1.0" encoding="utf-8" ?>
+ Same fix:
+xml<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Online_Battleship.Views.LeaderboardPage">
-    <Grid>
-        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
-        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}" HorizontalOptions="Center"
-               VerticalOptions="Start" />
+    <Grid RowDefinitions="Auto,*">
+        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"
+               Grid.RowSpan="2" />
 
-        <Border BackgroundColor="#CC000000" WidthRequest="{OnPlatform WinUI=420, Android=340}" VerticalOptions="Center"
-                HorizontalOptions="Center" Padding="25,15,25,25">
+        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}"
+               HorizontalOptions="Center" VerticalOptions="Start"
+               Grid.Row="0" Margin="0,20,0,0" />
+
+        <Border Grid.Row="1" BackgroundColor="#CC000000"
+                WidthRequest="{OnPlatform WinUI=420, Android=340}"
+                VerticalOptions="Center" HorizontalOptions="Center"
+                Padding="25,15,25,25" Margin="0,0,0,20">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="15" />
             </Border.StrokeShape>
@@ -17,16 +23,17 @@
             </Border.Stroke>
 
             <VerticalStackLayout Spacing="15">
-                <Label Text="Leaderboard" FontSize="Header" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
+                <Label Text="Leaderboard" FontSize="Header" FontAttributes="Bold"
+                       HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
 
                 <CollectionView x:Name="leaderboardList" HeightRequest="300">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid ColumnDefinitions="40,*,Auto" Padding="0,8">
                                 <Label Grid.Column="0" TextColor="Gold" FontAttributes="Bold" FontSize="16"
-                       VerticalOptions="Center" />
-                                <Label Grid.Column="1" Text="{Binding Username}" TextColor="White" 
-                       FontAttributes="Bold" FontSize="16" VerticalOptions="Center" />
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1" Text="{Binding Username}" TextColor="White"
+                                       FontAttributes="Bold" FontSize="16" VerticalOptions="Center" />
                                 <StackLayout Grid.Column="2" VerticalOptions="Center">
                                     <Label TextColor="Gray" FontSize="12" HorizontalOptions="End">
                                         <Label.FormattedText>
@@ -52,10 +59,9 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
-                        FontAttributes="Bold" CornerRadius="10" Clicked="butBack_Clicked" />
+                <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black"
+                        FontSize="20" FontAttributes="Bold" CornerRadius="10" Clicked="butBack_Clicked" />
             </VerticalStackLayout>
-
         </Border>
     </Grid>
 </ContentPage>

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Online_Battleship.Services;
+using Online_Battleship.Views;
 using Plugin.Maui.Audio;
 
 namespace Online_Battleship
@@ -17,6 +19,9 @@ namespace Online_Battleship
                 });
 
             builder.Services.AddSingleton(AudioManager.Current);
+            builder.Services.AddSingleton<IOrientationService, OrientationService>();
+            builder.Services.AddTransient<ShipPlacementPage>();
+            builder.Services.AddTransient<GamePage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
