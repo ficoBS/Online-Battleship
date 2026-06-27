@@ -6,40 +6,41 @@
     <Grid>
         <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
 
-        <Grid ColumnDefinitions="*,400,*" RowDefinitions="Auto,*,Auto">
+        <Grid ColumnDefinitions="*,280,*" RowDefinitions="Auto,*,Auto">
 
             <!-- turn indicator -->
             <Label x:Name="turnLabel" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"
-                   Text="Waiting..." TextColor="White" FontSize="20" FontAttributes="Bold"
-                   HorizontalOptions="Center" Margin="0,10,0,10" />
+           Text="Waiting..." TextColor="White" FontSize="16" FontAttributes="Bold"
+           HorizontalOptions="Center" Margin="0,6,0,6" />
 
             <!-- my table - left -->
-            <VerticalStackLayout Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                <Label Text="Your Board" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+            <VerticalStackLayout Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="3">
+                <Label Text="Your Board" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
                 <Grid x:Name="playerBoard" RowSpacing="2" ColumnSpacing="2" />
             </VerticalStackLayout>
 
             <!-- middle - Chat/Log -->
-            <Border Grid.Column="1" Grid.Row="1" BackgroundColor="#CC000000" Padding="15" Margin="10">
+            <Border Grid.Column="1" Grid.Row="1" BackgroundColor="#CC000000" Padding="10" Margin="5">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="15" />
                 </Border.StrokeShape>
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Battle Log" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
-                    <ScrollView x:Name="chatScroll" HeightRequest="400">
-                        <VerticalStackLayout x:Name="chatLog" Spacing="5" />
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Battle Log" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <ScrollView x:Name="chatScroll" HeightRequest="280">
+                        <VerticalStackLayout x:Name="chatLog" Spacing="4" />
                     </ScrollView>
                     <Grid ColumnDefinitions="*,Auto">
-                        <Entry x:Name="chatEntry" Placeholder="Type message..." BackgroundColor="White" TextColor="Black" Grid.Column="0" />
+                        <Entry x:Name="chatEntry" Placeholder="Type message..." BackgroundColor="White" 
+                       TextColor="Black" Grid.Column="0" FontSize="12" />
                         <Button Text="Send" BackgroundColor="LightBlue" TextColor="Black" FontAttributes="Bold"
-                                Grid.Column="1" Clicked="butSend_Clicked" />
+                        Grid.Column="1" Clicked="butSend_Clicked" FontSize="12" />
                     </Grid>
                 </VerticalStackLayout>
             </Border>
 
             <!-- enemy table - right -->
-            <VerticalStackLayout Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                <Label Text="Enemy Board" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+            <VerticalStackLayout Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="3">
+                <Label Text="Enemy Board" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
                 <Grid x:Name="enemyBoard" RowSpacing="2" ColumnSpacing="2" />
             </VerticalStackLayout>
 

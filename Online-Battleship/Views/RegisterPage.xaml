@@ -2,13 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Online_Battleship.Views.RegisterPage">
-    <Grid>
-        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
-        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}" HorizontalOptions="Center"
-               VerticalOptions="Start" />
+    <Grid RowDefinitions="Auto,*">
+        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"
+               Grid.RowSpan="2" />
 
-        <Border BackgroundColor="#CC000000" WidthRequest="{OnPlatform WinUI=420, Android=340}" VerticalOptions="Center"
-                HorizontalOptions="Center" Padding="25,15,25,25">
+        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}"
+               HorizontalOptions="Center" VerticalOptions="Start"
+               Grid.Row="0" Margin="0,20,0,0" />
+
+        <Border Grid.Row="1" BackgroundColor="#CC000000"
+                WidthRequest="{OnPlatform WinUI=420, Android=340}"
+                VerticalOptions="Center" HorizontalOptions="Center"
+                Padding="25,15,25,25" Margin="0,0,0,20">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="15" />
             </Border.StrokeShape>
@@ -17,25 +22,27 @@
             </Border.Stroke>
 
             <StackLayout Spacing="10">
-                <Label Text="Register" FontSize="Header" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
-                <Entry x:Name="usernameEntry" BackgroundColor="White" TextColor="Black" Placeholder="Username"
-                       ReturnType="Next" />
-                <Entry x:Name="emailEntry" BackgroundColor="White" TextColor="Black" Placeholder="Email"
-                       ReturnType="Next" Keyboard="Email" />
-                <Entry x:Name="passwordEntry1" BackgroundColor="White" TextColor="Black" Placeholder="Password"
-                       ReturnType="Next" IsPassword="True" />
-                <Entry x:Name="passwordEntry2" BackgroundColor="White" TextColor="Black" Placeholder="Repeat password"
-                       ReturnType="Next" IsPassword="True" />
+                <Label Text="Register" FontSize="Header" FontAttributes="Bold"
+                       HorizontalOptions="Center" Margin="0,0,0,10" TextColor="White" />
+                <Entry x:Name="usernameEntry" BackgroundColor="White" TextColor="Black"
+                       Placeholder="Username" ReturnType="Next" />
+                <Entry x:Name="emailEntry" BackgroundColor="White" TextColor="Black"
+                       Placeholder="Email" ReturnType="Next" Keyboard="Email" />
+                <Entry x:Name="passwordEntry1" BackgroundColor="White" TextColor="Black"
+                       Placeholder="Password" ReturnType="Next" IsPassword="True" />
+                <Entry x:Name="passwordEntry2" BackgroundColor="White" TextColor="Black"
+                       Placeholder="Repeat password" ReturnType="Next" IsPassword="True" />
                 <Label Text="Date of birth:" TextColor="White" Margin="0,5,0,0" />
                 <DatePicker x:Name="birthPicker" BackgroundColor="white" TextColor="Black" Format="dd-MM-yyyy" />
 
                 <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
-                    <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
-                            FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butBack_Clicked" WidthRequest="150" />
-                    <Button x:Name="butRegister" Text="Register" BackgroundColor="LightBlue" TextColor="Black" FontSize="20"
-                            FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10" Clicked="butRegister_Clicked" WidthRequest="150" />
+                    <Button x:Name="butBack" Text="Back" BackgroundColor="LightBlue" TextColor="Black"
+                            FontSize="20" FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10"
+                            Clicked="butBack_Clicked" WidthRequest="{OnPlatform WinUI=150, Android=120}" />
+                    <Button x:Name="butRegister" Text="Register" BackgroundColor="LightBlue" TextColor="Black"
+                            FontSize="20" FontAttributes="Bold" Margin="0,20,0,0" CornerRadius="10"
+                            Clicked="butRegister_Clicked" WidthRequest="{OnPlatform WinUI=150, Android=120}" />
                 </HorizontalStackLayout>
-                
             </StackLayout>
         </Border>
     </Grid>

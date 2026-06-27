@@ -2,13 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Online_Battleship.Views.MainPage">
-    <Grid>
-        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
-        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}" HorizontalOptions="Center"
-               VerticalOptions="Start" />
+    <Grid RowDefinitions="Auto,*">
+        <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"
+               Grid.RowSpan="2" />
 
-        <Border BackgroundColor="#CC000000" WidthRequest="{OnPlatform WinUI=420, Android=340}" VerticalOptions="Center"
-        HorizontalOptions="Center" Padding="25,15,25,25">
+        <Image Source="battleship_logo.png" WidthRequest="{OnPlatform WinUI=450, Android=280}"
+               HorizontalOptions="Center" VerticalOptions="Start"
+               Grid.Row="0" Margin="0,20,0,0" />
+
+        <Border Grid.Row="1" BackgroundColor="#CC000000"
+                WidthRequest="{OnPlatform WinUI=420, Android=340}"
+                VerticalOptions="Center" HorizontalOptions="Center"
+                Padding="25,15,25,25" Margin="0,0,0,20">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="15" />
             </Border.StrokeShape>
@@ -17,27 +22,34 @@
             </Border.Stroke>
 
             <VerticalStackLayout Spacing="10">
-                <Label x:Name="welcomeLabel" Text="Welcome!" TextColor="White" FontSize="20" 
-                        FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" />
-                <Button x:Name="butFindMatch" Text="Find Match" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
-                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butFindMatch_Clicked" />
-                <Button x:Name="butPlayers" Text="Find players" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
-                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butPlayers_Clicked" />
-                <Button x:Name="butLeaderboard" Text="Leaderboard" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
-                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butLeaderboard_Clicked" />
-                <Button x:Name="butHistory" Text="Match history" FontSize="20" FontAttributes="Bold" BackgroundColor="LightBlue" 
-                        TextColor="Black" HorizontalOptions="Center" WidthRequest="200" CornerRadius="10" Clicked="butHistory_Clicked" />
+                <Label x:Name="welcomeLabel" Text="Welcome!" TextColor="White" FontSize="20"
+                       FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" />
+                <Button x:Name="butFindMatch" Text="Find Match" FontSize="20" FontAttributes="Bold"
+                        BackgroundColor="LightBlue" TextColor="Black" HorizontalOptions="Center"
+                        WidthRequest="200" CornerRadius="10" Clicked="butFindMatch_Clicked" />
+                <Button x:Name="butPlayers" Text="Find players" FontSize="20" FontAttributes="Bold"
+                        BackgroundColor="LightBlue" TextColor="Black" HorizontalOptions="Center"
+                        WidthRequest="200" CornerRadius="10" Clicked="butPlayers_Clicked" />
+                <Button x:Name="butLeaderboard" Text="Leaderboard" FontSize="20" FontAttributes="Bold"
+                        BackgroundColor="LightBlue" TextColor="Black" HorizontalOptions="Center"
+                        WidthRequest="200" CornerRadius="10" Clicked="butLeaderboard_Clicked" />
+                <Button x:Name="butHistory" Text="Match history" FontSize="20" FontAttributes="Bold"
+                        BackgroundColor="LightBlue" TextColor="Black" HorizontalOptions="Center"
+                        WidthRequest="200" CornerRadius="10" Clicked="butHistory_Clicked" />
 
-                <StackLayout Orientation="Horizontal" Padding="0" HorizontalOptions="Center" Margin="0,20,0,0" Spacing="20">
-                    <Button x:Name="butLeave" Text="Leave" FontSize="20" FontAttributes="Bold" BackgroundColor="Black" 
-                            TextColor="Red" WidthRequest="150" CornerRadius="10" Clicked="butLeave_Clicked" IsVisible="{OnPlatform WinUI=True, Android=False}" >
+                <StackLayout Orientation="Horizontal" Padding="0" HorizontalOptions="Center"
+                             Margin="0,20,0,0" Spacing="20">
+                    <Button x:Name="butLeave" Text="Leave" FontSize="20" FontAttributes="Bold"
+                            BackgroundColor="Black" TextColor="Red" WidthRequest="150" CornerRadius="10"
+                            Clicked="butLeave_Clicked" IsVisible="{OnPlatform WinUI=True, Android=False}">
                         <Button.BorderColor>
                             <Color>Red</Color>
                         </Button.BorderColor>
                         <Button.BorderWidth>2</Button.BorderWidth>
                     </Button>
-                    <Button x:Name="butLogout" Text="Logout" FontSize="20" FontAttributes="Bold" BackgroundColor="Black" 
-                            TextColor="Red" WidthRequest="150" CornerRadius="10" Clicked="butLogout_Clicked" >
+                    <Button x:Name="butLogout" Text="Logout" FontSize="20" FontAttributes="Bold"
+                            BackgroundColor="Black" TextColor="Red" WidthRequest="150" CornerRadius="10"
+                            Clicked="butLogout_Clicked">
                         <Button.BorderColor>
                             <Color>Red</Color>
                         </Button.BorderColor>

@@ -5,18 +5,27 @@ namespace Online_Battleship.Views;
 
 public partial class GamePage : ContentPage
 {
+#if ANDROID
+    private int cellSize = 35;
+#else
+    private int cellSize = 30;
+#endif
     private const int BoardSize = 10;
     private Button[,] playerButtons = new Button[BoardSize, BoardSize];
     private Button[,] enemyButtons = new Button[BoardSize, BoardSize];
 
-    public GamePage()
+    private readonly IOrientationService _orientationService;
+
+    public GamePage(IOrientationService orientationService)
     {
         InitializeComponent();
+        _orientationService = orientationService;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        _orientationService.SetLandscape();
         ResetBoards();
         ShowPlayerShips();
         UpdateTurnLabel();
@@ -30,6 +39,8 @@ public partial class GamePage : ContentPage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
+        _orientationService.SetPortrait();
+
         SessionService.Hub.OnOpponentShot -= OnOpponentShot;
         SessionService.Hub.OnShotResult -= OnShotResult;
         SessionService.Hub.OnReceiveMessage -= OnReceiveMessage;
@@ -68,8 +79,8 @@ public partial class GamePage : ContentPage
     {
         for (int i = 0; i < BoardSize; i++)
         {
-            grid.RowDefinitions.Add(new RowDefinition { Height = 35 });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = 35 });
+            grid.RowDefinitions.Add(new RowDefinition { Height = cellSize });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = cellSize });
         }
 
         for (int row = 0; row < BoardSize; row++)
@@ -113,13 +124,13 @@ public partial class GamePage : ContentPage
 
             if (result == CellState.Hit)
             {
-                await SoundService.PlayHitAsync();
                 cell.BackgroundColor = Colors.Red;
                 AddLog($"Enemy hit at {(char)('A' + col)}{row + 1}!", Colors.Red);
 
                 string sunkShipInfo = "";
                 var sunkShip = SessionService.PlayerBoard.Ships
                     .FirstOrDefault(s => s.IsSunk && s.Cells.Any(c => c.Row == row && c.Col == col));
+
                 if (sunkShip != null)
                 {
                     sunkShipInfo = $"{sunkShip.Type} ({sunkShip.Size})";
@@ -133,7 +144,6 @@ public partial class GamePage : ContentPage
             }
             else
             {
-                await SoundService.PlayMissAsync();
                 cell.BackgroundColor = Colors.White;
                 AddLog($"Enemy missed at {(char)('A' + col)}{row + 1}", Colors.Gray);
                 await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Miss");
@@ -150,6 +160,7 @@ public partial class GamePage : ContentPage
         {
             if (result == "Hit")
             {
+                //await SoundService.PlayHitAsync();
                 enemyButtons[row, col].BackgroundColor = Colors.Red;
                 AddLog($"You hit at {(char)('A' + col)}{row + 1}!", Colors.Green);
                 if (!string.IsNullOrEmpty(sunkShipInfo))
@@ -157,6 +168,7 @@ public partial class GamePage : ContentPage
             }
             else
             {
+                //await SoundService.PlayMissAsync();
                 enemyButtons[row, col].BackgroundColor = Colors.White;
                 AddLog($"You missed at {(char)('A' + col)}{row + 1}", Colors.Gray);
             }

@@ -6,107 +6,109 @@
     <Grid>
         <Image Source="background.png" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill" />
 
-        <Grid ColumnDefinitions="300,*" RowDefinitions="Auto,*,Auto" Padding="20">
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*,Auto" Padding="10">
 
             <!-- ship list - left -->
-            <Border Grid.Column="0" Grid.Row="1" BackgroundColor="#CC000000" Padding="15" Margin="0,0,10,0">
+            <Border Grid.Column="0" Grid.Row="1" BackgroundColor="#CC000000" Padding="10" Margin="0,0,8,0">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="15" />
                 </Border.StrokeShape>
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Place Your Ships" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                <ScrollView>
+                    <VerticalStackLayout Spacing="6" WidthRequest="160">
+                        <Label Text="Place Your Ships" TextColor="White" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
 
-                    <!-- Carrier -->
-                    <Grid Margin="0,0,8,0">
-                        <Button x:Name="butCarrier" Text="Carrier (5)" BackgroundColor="LightBlue" TextColor="Black"
-                                FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
-                        <Border x:Name="badgeCarrier" IsVisible="False"
-                                HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
-                                BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
-                                WidthRequest="24" HeightRequest="24">
-                            <Border.StrokeShape>
-                                <Ellipse />
-                            </Border.StrokeShape>
-                            <Label Text="✕" TextColor="White" FontSize="13" FontAttributes="Bold"
-                                   HorizontalOptions="Center" VerticalOptions="Center" />
-                        </Border>
-                    </Grid>
+                        <!-- Carrier -->
+                        <Grid Margin="0,0,8,0">
+                            <Button x:Name="butCarrier" Text="Carrier (5)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" FontSize="12" />
+                            <Border x:Name="badgeCarrier" IsVisible="False"
+                            HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
+                            BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
+                            WidthRequest="20" HeightRequest="20">
+                                <Border.StrokeShape>
+                                    <Ellipse />
+                                </Border.StrokeShape>
+                                <Label Text="✕" TextColor="White" FontSize="11" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
 
-                    <!-- Battleship -->
-                    <Grid Margin="0,0,8,0">
-                        <Button x:Name="butBattleship" Text="Battleship (4)" BackgroundColor="LightBlue" TextColor="Black"
-                                FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
-                        <Border x:Name="badgeBattleship" IsVisible="False"
-                                HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
-                                BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
-                                WidthRequest="24" HeightRequest="24">
-                            <Border.StrokeShape>
-                                <Ellipse />
-                            </Border.StrokeShape>
-                            <Label Text="✕" TextColor="White" FontSize="13" FontAttributes="Bold"
-                                   HorizontalOptions="Center" VerticalOptions="Center" />
-                        </Border>
-                    </Grid>
+                        <!-- Battleship -->
+                        <Grid Margin="0,0,8,0">
+                            <Button x:Name="butBattleship" Text="Battleship (4)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" FontSize="12" />
+                            <Border x:Name="badgeBattleship" IsVisible="False"
+                            HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
+                            BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
+                            WidthRequest="20" HeightRequest="20">
+                                <Border.StrokeShape>
+                                    <Ellipse />
+                                </Border.StrokeShape>
+                                <Label Text="✕" TextColor="White" FontSize="11" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
 
-                    <!-- Cruiser -->
-                    <Grid Margin="0,0,8,0">
-                        <Button x:Name="butCruiser" Text="Cruiser (3)" BackgroundColor="LightBlue" TextColor="Black"
-                                FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
-                        <Border x:Name="badgeCruiser" IsVisible="False"
-                                HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
-                                BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
-                                WidthRequest="24" HeightRequest="24">
-                            <Border.StrokeShape>
-                                <Ellipse />
-                            </Border.StrokeShape>
-                            <Label Text="✕" TextColor="White" FontSize="13" FontAttributes="Bold"
-                                   HorizontalOptions="Center" VerticalOptions="Center" />
-                        </Border>
-                    </Grid>
+                        <!-- Cruiser -->
+                        <Grid Margin="0,0,8,0">
+                            <Button x:Name="butCruiser" Text="Cruiser (3)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" FontSize="12" />
+                            <Border x:Name="badgeCruiser" IsVisible="False"
+                            HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
+                            BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
+                            WidthRequest="20" HeightRequest="20">
+                                <Border.StrokeShape>
+                                    <Ellipse />
+                                </Border.StrokeShape>
+                                <Label Text="✕" TextColor="White" FontSize="11" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
 
-                    <!-- Submarine -->
-                    <Grid Margin="0,0,8,0">
-                        <Button x:Name="butSubmarine" Text="Submarine (3)" BackgroundColor="LightBlue" TextColor="Black"
-                                FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
-                        <Border x:Name="badgeSubmarine" IsVisible="False"
-                                HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
-                                BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
-                                WidthRequest="24" HeightRequest="24">
-                            <Border.StrokeShape>
-                                <Ellipse />
-                            </Border.StrokeShape>
-                            <Label Text="✕" TextColor="White" FontSize="13" FontAttributes="Bold"
-                                   HorizontalOptions="Center" VerticalOptions="Center" />
-                        </Border>
-                    </Grid>
+                        <!-- Submarine -->
+                        <Grid Margin="0,0,8,0">
+                            <Button x:Name="butSubmarine" Text="Submarine (3)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" FontSize="12" />
+                            <Border x:Name="badgeSubmarine" IsVisible="False"
+                            HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
+                            BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
+                            WidthRequest="20" HeightRequest="20">
+                                <Border.StrokeShape>
+                                    <Ellipse />
+                                </Border.StrokeShape>
+                                <Label Text="✕" TextColor="White" FontSize="11" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
 
-                    <!-- Destroyer -->
-                    <Grid Margin="0,0,8,0">
-                        <Button x:Name="butDestroyer" Text="Destroyer (2)" BackgroundColor="LightBlue" TextColor="Black"
-                                FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" />
-                        <Border x:Name="badgeDestroyer" IsVisible="False"
-                                HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
-                                BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
-                                WidthRequest="24" HeightRequest="24">
-                            <Border.StrokeShape>
-                                <Ellipse />
-                            </Border.StrokeShape>
-                            <Label Text="✕" TextColor="White" FontSize="13" FontAttributes="Bold"
-                                   HorizontalOptions="Center" VerticalOptions="Center" />
-                        </Border>
-                    </Grid>
+                        <!-- Destroyer -->
+                        <Grid Margin="0,0,8,0">
+                            <Button x:Name="butDestroyer" Text="Destroyer (2)" BackgroundColor="LightBlue" TextColor="Black"
+                            FontAttributes="Bold" CornerRadius="10" Clicked="ShipButton_Clicked" FontSize="12" />
+                            <Border x:Name="badgeDestroyer" IsVisible="False"
+                            HorizontalOptions="End" VerticalOptions="Start" Margin="0,-8,-8,0"
+                            BackgroundColor="#CC3333" StrokeThickness="1.5" Stroke="#FF6666"
+                            WidthRequest="20" HeightRequest="20">
+                                <Border.StrokeShape>
+                                    <Ellipse />
+                                </Border.StrokeShape>
+                                <Label Text="✕" TextColor="White" FontSize="11" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
 
-                    <Button x:Name="butRotate" Text="Rotate: Horizontal" BackgroundColor="#444" TextColor="White"
-                            FontAttributes="Bold" CornerRadius="10" Clicked="butRotate_Clicked" Margin="0,20,0,0" />
+                        <Button x:Name="butRotate" Text="Rotate: Horizontal" BackgroundColor="#444" TextColor="White"
+                        FontAttributes="Bold" CornerRadius="10" Clicked="butRotate_Clicked" Margin="0,10,0,0" FontSize="12" />
 
-                    <Button x:Name="butReady" Text="Ready!" BackgroundColor="Green" TextColor="White"
-                            FontAttributes="Bold" CornerRadius="10" IsEnabled="False" Clicked="butReady_Clicked" Margin="0,20,0,0" />
-                </VerticalStackLayout>
+                        <Button x:Name="butReady" Text="Ready!" BackgroundColor="Green" TextColor="White"
+                        FontAttributes="Bold" CornerRadius="10" IsEnabled="False" Clicked="butReady_Clicked" Margin="0,10,0,0" FontSize="12" />
+                    </VerticalStackLayout>
+                </ScrollView>
             </Border>
 
             <!-- placement board - right -->
             <VerticalStackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                <Label Text="Your Board" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="Your Board" TextColor="White" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
                 <Grid x:Name="placementBoard" RowSpacing="2" ColumnSpacing="2" />
             </VerticalStackLayout>
 
