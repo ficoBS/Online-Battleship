@@ -2,6 +2,6 @@
 {
     public static class AppConfig
     {
-        public static string ServerUrl = "http://localhost:5205";
+        public static string ServerUrl = "https://online-battleship-production.up.railway.app";
     }
 }
