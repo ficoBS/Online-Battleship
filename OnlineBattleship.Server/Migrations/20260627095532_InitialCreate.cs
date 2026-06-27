@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,17 +16,17 @@ namespace OnlineBattleship.Server.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
-                    Wins = table.Column<int>(type: "INTEGER", nullable: false),
-                    Losses = table.Column<int>(type: "INTEGER", nullable: false),
-                    Points = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsOnline = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LastSeen = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Username = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
+                    Wins = table.Column<int>(type: "integer", nullable: false),
+                    Losses = table.Column<int>(type: "integer", nullable: false),
+                    Points = table.Column<int>(type: "integer", nullable: false),
+                    IsOnline = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastSeen = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,13 +37,13 @@ namespace OnlineBattleship.Server.Migrations
                 name: "Matches",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Player1Id = table.Column<int>(type: "INTEGER", nullable: false),
-                    Player2Id = table.Column<int>(type: "INTEGER", nullable: false),
-                    WinnerId = table.Column<int>(type: "INTEGER", nullable: true),
-                    StartedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EndedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Player1Id = table.Column<int>(type: "integer", nullable: false),
+                    Player2Id = table.Column<int>(type: "integer", nullable: false),
+                    WinnerId = table.Column<int>(type: "integer", nullable: true),
+                    StartedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

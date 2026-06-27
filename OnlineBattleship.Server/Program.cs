@@ -9,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=battleship.db"));
+    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL") ?? "Host=localhost;Database=battleship;Username=postgres;Password=postgres"));
 
 builder.Services.AddScoped<AuthService>();
 
