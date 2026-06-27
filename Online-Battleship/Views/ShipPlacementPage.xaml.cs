@@ -42,6 +42,14 @@ public partial class ShipPlacementPage : ContentPage
             { ShipType.Submarine,  (butSubmarine,  badgeSubmarine)  },
             { ShipType.Destroyer,  (butDestroyer,  badgeDestroyer)  },
         };
+
+        foreach (var (type, (btn, badge)) in shipControls)
+        {
+            var t = type;
+            var tap = new TapGestureRecognizer();
+            tap.Tapped += (s, e) => RemovePlacedShip(t);
+            badge.GestureRecognizers.Add(tap);
+        }
     }
 
     protected override void OnAppearing()
@@ -189,14 +197,44 @@ public partial class ShipPlacementPage : ContentPage
         var (btn, badge) = shipControls[selectedShip.Type];
         btn.IsEnabled = false;
         btn.BackgroundColor = Color.FromArgb("#555555");
+        btn.BorderColor = Colors.Transparent;
         btn.BorderWidth = 0;
         badge.IsVisible = true;
 
         placedShips.Add(selectedShip.Type);
         selectedShip = null;
+        SetSelectedShip(null);
 
         if (placedShips.Count == 5)
             butReady.IsEnabled = true;
+    }
+
+    private async void RemovePlacedShip(ShipType type)
+    {
+        await SoundService.PlayClickAsync();
+
+        if (!placedShips.Contains(type)) return;
+
+        var ship = board.Ships.FirstOrDefault(s => s.Type == type);
+        if (ship == null) return;
+
+        foreach (var cell in ship.Cells)
+            buttons[cell.Row, cell.Col].BackgroundColor = Color.FromArgb("#1a6fa8");
+
+        board.RemoveShip(ship);
+
+        var (btn, badge) = shipControls[type];
+        btn.IsEnabled = true;
+        btn.BackgroundColor = Color.FromArgb("#ADD8E6");
+        btn.BorderColor = Colors.Transparent;
+        btn.BorderWidth = 0;
+        badge.IsVisible = false;
+
+        placedShips.Remove(type);
+        butReady.IsEnabled = false;
+
+        selectedShip = new Ship(type);
+        SetSelectedShip(type);
     }
 
     private async void butReady_Clicked(object sender, EventArgs e)

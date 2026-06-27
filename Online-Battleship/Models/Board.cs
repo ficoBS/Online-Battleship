@@ -71,6 +71,15 @@ namespace Online_Battleship.Models
             }
         }
 
+        public void RemoveShip(Ship ship)
+        {
+            foreach (var cell in ship.Cells)
+            {
+                cell.State = CellState.Empty;
+            }
+            Ships.Remove(ship);
+        }
+
         public bool AllShipsSunk => Ships.All(s => s.IsSunk);
     }
 }
