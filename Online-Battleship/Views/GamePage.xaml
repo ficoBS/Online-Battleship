@@ -8,6 +8,11 @@
 
         <Grid ColumnDefinitions="*,400,*" RowDefinitions="Auto,*,Auto">
 
+            <!-- turn indicator -->
+            <Label x:Name="turnLabel" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"
+                   Text="Waiting..." TextColor="White" FontSize="20" FontAttributes="Bold"
+                   HorizontalOptions="Center" Margin="0,10,0,10" />
+
             <!-- my table - left -->
             <VerticalStackLayout Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
                 <Label Text="Your Board" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />

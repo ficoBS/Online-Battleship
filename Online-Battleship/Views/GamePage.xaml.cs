@@ -8,13 +8,18 @@ public partial class GamePage : ContentPage
     private const int BoardSize = 10;
     private Button[,] playerButtons = new Button[BoardSize, BoardSize];
     private Button[,] enemyButtons = new Button[BoardSize, BoardSize];
-    private bool myTurn = false;
 
     public GamePage()
     {
         InitializeComponent();
-        BuildBoard(playerBoard, playerButtons, isEnemy: false);
-        BuildBoard(enemyBoard, enemyButtons, isEnemy: true);
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ResetBoards();
+        ShowPlayerShips();
+        UpdateTurnLabel();
 
         SessionService.Hub.OnOpponentShot += OnOpponentShot;
         SessionService.Hub.OnShotResult += OnShotResult;
@@ -22,25 +27,29 @@ public partial class GamePage : ContentPage
         SessionService.Hub.OnGameEnded += OnGameEnded;
     }
 
-    protected override void OnAppearing()
+    protected override void OnDisappearing()
     {
-        base.OnAppearing();
-        resetBoard();
-        ShowPlayerShips();
+        base.OnDisappearing();
+        SessionService.Hub.OnOpponentShot -= OnOpponentShot;
+        SessionService.Hub.OnShotResult -= OnShotResult;
+        SessionService.Hub.OnReceiveMessage -= OnReceiveMessage;
+        SessionService.Hub.OnGameEnded -= OnGameEnded;
     }
 
-    private void resetBoard()
+    private void ResetBoards()
     {
-        var defaultColor = Color.FromArgb("#1a6fa8");
+        playerBoard.RowDefinitions.Clear();
+        playerBoard.ColumnDefinitions.Clear();
+        playerBoard.Children.Clear();
+        enemyBoard.RowDefinitions.Clear();
+        enemyBoard.ColumnDefinitions.Clear();
+        enemyBoard.Children.Clear();
 
-        for (int row = 0; row < BoardSize; row++)
-            for (int col = 0; col < BoardSize; col++)
-            {
-                playerButtons[row, col].BackgroundColor = defaultColor;
-                playerButtons[row, col].IsEnabled = true;
-                enemyButtons[row, col].BackgroundColor = defaultColor;
-                enemyButtons[row, col].IsEnabled = true;
-            }
+        playerButtons = new Button[BoardSize, BoardSize];
+        enemyButtons = new Button[BoardSize, BoardSize];
+
+        BuildBoard(playerBoard, playerButtons, isEnemy: false);
+        BuildBoard(enemyBoard, enemyButtons, isEnemy: true);
 
         chatLog.Children.Clear();
     }
@@ -51,7 +60,7 @@ public partial class GamePage : ContentPage
 
         for (int row = 0; row < 10; row++)
             for (int col = 0; col < 10; col++)
-                if (SessionService.PlayerBoard.Cells[row, col].State == Models.CellState.Ship)
+                if (SessionService.PlayerBoard.Cells[row, col].State == CellState.Ship)
                     playerButtons[row, col].BackgroundColor = Colors.Gray;
     }
 
@@ -84,13 +93,12 @@ public partial class GamePage : ContentPage
         }
     }
 
-
-
     private async void OnEnemyCellClicked(int row, int col)
     {
         if (!SessionService.IsMyTurn) return;
 
         SessionService.IsMyTurn = false;
+        UpdateTurnLabel();
         enemyButtons[row, col].IsEnabled = false;
 
         await SessionService.Hub.Shoot(SessionService.CurrentGameId, row, col);
@@ -103,12 +111,22 @@ public partial class GamePage : ContentPage
             var result = SessionService.PlayerBoard.ReceiveShot(row, col);
             var cell = playerButtons[row, col];
 
-            if (result == Models.CellState.Hit)
+            if (result == CellState.Hit)
             {
                 await SoundService.PlayHitAsync();
                 cell.BackgroundColor = Colors.Red;
                 AddLog($"Enemy hit at {(char)('A' + col)}{row + 1}!", Colors.Red);
-                await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Hit");
+
+                string sunkShipInfo = "";
+                var sunkShip = SessionService.PlayerBoard.Ships
+                    .FirstOrDefault(s => s.IsSunk && s.Cells.Any(c => c.Row == row && c.Col == col));
+                if (sunkShip != null)
+                {
+                    sunkShipInfo = $"{sunkShip.Type} ({sunkShip.Size})";
+                    AddLog($"{sunkShipInfo} sunk!", Colors.OrangeRed);
+                }
+
+                await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Hit", sunkShipInfo);
 
                 if (SessionService.PlayerBoard.AllShipsSunk)
                     await SessionService.Hub.GameOver(SessionService.CurrentGameId, SessionService.OpponentId, SessionService.UserId);
@@ -122,10 +140,11 @@ public partial class GamePage : ContentPage
             }
 
             SessionService.IsMyTurn = true;
+            UpdateTurnLabel();
         });
     }
 
-    private void OnShotResult(int row, int col, string result)
+    private void OnShotResult(int row, int col, string result, string sunkShipInfo)
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
@@ -133,6 +152,8 @@ public partial class GamePage : ContentPage
             {
                 enemyButtons[row, col].BackgroundColor = Colors.Red;
                 AddLog($"You hit at {(char)('A' + col)}{row + 1}!", Colors.Green);
+                if (!string.IsNullOrEmpty(sunkShipInfo))
+                    AddLog($"You sunk enemy {sunkShipInfo}!", Colors.Gold);
             }
             else
             {
@@ -166,6 +187,7 @@ public partial class GamePage : ContentPage
             await Shell.Current.GoToAsync("//MainPage");
         });
     }
+
     private void AddLog(string message, Color color)
     {
         var label = new Label { Text = message, TextColor = color, FontSize = 12 };
@@ -184,12 +206,9 @@ public partial class GamePage : ContentPage
         chatEntry.Text = "";
     }
 
-    protected override void OnDisappearing()
+    private void UpdateTurnLabel()
     {
-        base.OnDisappearing();
-        SessionService.Hub.OnOpponentShot -= OnOpponentShot;
-        SessionService.Hub.OnShotResult -= OnShotResult;
-        SessionService.Hub.OnReceiveMessage -= OnReceiveMessage;
-        SessionService.Hub.OnGameEnded -= OnGameEnded;
+        turnLabel.Text = SessionService.IsMyTurn ? "Your Turn!" : "Enemy's Turn...";
+        turnLabel.TextColor = SessionService.IsMyTurn ? Colors.LightGreen : Colors.OrangeRed;
     }
 }

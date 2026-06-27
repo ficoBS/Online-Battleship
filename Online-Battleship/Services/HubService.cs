@@ -13,7 +13,7 @@ namespace Online_Battleship.Services
         public event Action OnWaitingForOpponent;
         public event Action OnOpponentReady;
         public event Action<int, int> OnOpponentShot;
-        public event Action<int, int, string> OnShotResult;
+        public event Action<int, int, string, string> OnShotResult;
         public event Action<string, string> OnReceiveMessage;
         public event Action<int> OnGameEnded;
         public event Action<int, string> OnChallengeReceived;
@@ -51,8 +51,8 @@ namespace Online_Battleship.Services
             _connection.On<int, int>("OpponentShot", (row, col) =>
                 OnOpponentShot?.Invoke(row, col));
 
-            _connection.On<int, int, string>("ShotResult", (row, col, result) =>
-                OnShotResult?.Invoke(row, col, result));
+            _connection.On<int, int, string, string>("ShotResult", (row, col, result, sunkShipInfo) =>
+                OnShotResult?.Invoke(row, col, result, sunkShipInfo));
 
             _connection.On<string, string>("ReceiveMessage", (username, message) =>
                 OnReceiveMessage?.Invoke(username, message));
@@ -85,9 +85,8 @@ namespace Online_Battleship.Services
         public async Task Shoot(string gameId, int row, int col) =>
             await _connection.InvokeAsync("Shoot", gameId, row, col);
 
-        public async Task ShotResult(string gameId, int row, int col, string result) =>
-            await _connection.InvokeAsync("ShotResult", gameId, row, col, result);
-
+        public async Task ShotResult(string gameId, int row, int col, string result, string sunkShipInfo = "") =>
+            await _connection.InvokeAsync("ShotResult", gameId, row, col, result, sunkShipInfo);
         public async Task SendMessage(string gameId, string message) =>
             await _connection.InvokeAsync("SendMessage", gameId, message);
 

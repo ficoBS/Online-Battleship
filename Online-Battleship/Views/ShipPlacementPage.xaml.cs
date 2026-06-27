@@ -13,7 +13,14 @@ public partial class ShipPlacementPage : ContentPage
     private HashSet<ShipType> placedShips = new HashSet<ShipType>();
 
     private Dictionary<ShipType, (Button btn, Border badge)> shipControls;
-
+    private static readonly Dictionary<ShipType, Color> shipColors = new()
+    {
+        { ShipType.Carrier,    Color.FromArgb("#2E8B57") }, // green
+        { ShipType.Battleship, Color.FromArgb("#8B0000") }, // dark red
+        { ShipType.Cruiser,    Color.FromArgb("#FF8C00") }, // orange
+        { ShipType.Submarine,  Color.FromArgb("#4B0082") }, // purple
+        { ShipType.Destroyer,  Color.FromArgb("#008B8B") }, // teal
+    };
     public ShipPlacementPage()
     {
         InitializeComponent();
@@ -159,9 +166,8 @@ public partial class ShipPlacementPage : ContentPage
             await DisplayAlert("Invalid", "Cannot place ship here!", "OK");
             return;
         }
-
         foreach (var cell in selectedShip.Cells)
-            buttons[cell.Row, cell.Col].BackgroundColor = Colors.Gray;
+            buttons[cell.Row, cell.Col].BackgroundColor = shipColors[selectedShip.Type];
 
         var (btn, badge) = shipControls[selectedShip.Type];
         btn.IsEnabled = false;

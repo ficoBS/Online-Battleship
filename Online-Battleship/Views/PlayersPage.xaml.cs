@@ -18,7 +18,7 @@ public partial class PlayersPage : ContentPage
     private async Task LoadPlayers()
     {
         var players = await SessionService.Api.GetPlayers();
-        playersList.ItemsSource = players;
+        playersList.ItemsSource = players.Where(p => p.Id != SessionService.UserId).ToList();
     }
 
     private async void butBack_Clicked(object sender, EventArgs e)

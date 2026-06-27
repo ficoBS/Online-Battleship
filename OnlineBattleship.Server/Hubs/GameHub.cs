@@ -75,9 +75,9 @@ namespace OnlineBattleship.Server.Hubs
                 var user1 = await _db.Users.FindAsync(player1.userId);
                 var user2 = await _db.Users.FindAsync(player2.userId);
 
-await Clients.Group(gameId).SendAsync("MatchFound", gameId, 
-    user1?.Username ?? "", user2?.Username ?? "",
-    player1.userId.ToString(), player2.userId.ToString());            }
+                await Clients.Group(gameId).SendAsync("MatchFound", gameId, 
+                user1?.Username ?? "", user2?.Username ?? "",
+                player1.userId.ToString(), player2.userId.ToString());            }
             else
             {
                 await Clients.Caller.SendAsync("WaitingForOpponent");
@@ -132,9 +132,9 @@ await Clients.Group(gameId).SendAsync("MatchFound", gameId,
             await Clients.OthersInGroup(gameId).SendAsync("OpponentShot", row, col);
         }
 
-        public async Task ShotResult(string gameId, int row, int col, string result)
+        public async Task ShotResult(string gameId, int row, int col, string result, string sunkShipInfo)
         {
-            await Clients.OthersInGroup(gameId).SendAsync("ShotResult", row, col, result);
+            await Clients.OthersInGroup(gameId).SendAsync("ShotResult", row, col, result, sunkShipInfo);
         }
 
         public async Task SendMessage(string gameId, string message)
