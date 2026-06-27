@@ -30,8 +30,8 @@ namespace OnlineBattleship.Server.Services
                 Losses = 0,
                 Points = 0,
                 IsOnline = false,
-                CreatedAt = DateTime.Now,
-                LastSeen = DateTime.Now
+                CreatedAt = DateTime.UtcNow,
+                LastSeen = DateTime.UtcNow
             };
 
             _db.Users.Add(user);
@@ -48,7 +48,7 @@ namespace OnlineBattleship.Server.Services
             if (user.IsOnline) return (null, "Account is already logged in");
 
             user.IsOnline = true;
-            user.LastSeen = DateTime.Now;
+            user.LastSeen = DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
             return (user, "");
@@ -59,8 +59,8 @@ namespace OnlineBattleship.Server.Services
             var user = await _db.Users.FindAsync(userId);
             if (user == null) return;
 
-            user.IsOnline = false;
-            user.LastSeen = DateTime.Now;
+            user.IsOnline = true;
+            user.LastSeen = DateTime.UtcNow;
             await _db.SaveChangesAsync();
         }
 

@@ -30,7 +30,7 @@ namespace OnlineBattleship.Server.Hubs
                 if (user != null)
                 {
                     user.IsOnline = false;
-                    user.LastSeen = DateTime.Now;
+                    user.LastSeen = DateTime.UtcNow;
                     await _db.SaveChangesAsync();
                 }
                 _connectedUsers.Remove(Context.ConnectionId);
@@ -165,8 +165,8 @@ namespace OnlineBattleship.Server.Hubs
                 Player1Id = winnerId,
                 Player2Id = loserId,
                 WinnerId = winnerId,
-                StartedAt = DateTime.Now,
-                EndedAt = DateTime.Now
+                StartedAt = DateTime.UtcNow,
+                EndedAt = DateTime.UtcNow
             };
 
             _db.Matches.Add(match);
