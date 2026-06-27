@@ -41,6 +41,8 @@ public partial class MatchPage : ContentPage
 
     private async void butCancel_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await SessionService.Hub.LeaveMatchmaking();
         await Shell.Current.GoToAsync("//MainPage");
     }

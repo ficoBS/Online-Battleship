@@ -12,9 +12,50 @@ public partial class ShipPlacementPage : ContentPage
     private ShipOrientation orientation = ShipOrientation.Horizontal;
     private HashSet<ShipType> placedShips = new HashSet<ShipType>();
 
+    private Dictionary<ShipType, (Button btn, Border badge)> shipControls;
+
     public ShipPlacementPage()
     {
         InitializeComponent();
+
+        shipControls = new Dictionary<ShipType, (Button, Border)>
+        {
+            { ShipType.Carrier,    (butCarrier,    badgeCarrier)    },
+            { ShipType.Battleship, (butBattleship, badgeBattleship) },
+            { ShipType.Cruiser,    (butCruiser,    badgeCruiser)    },
+            { ShipType.Submarine,  (butSubmarine,  badgeSubmarine)  },
+            { ShipType.Destroyer,  (butDestroyer,  badgeDestroyer)  },
+        };
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        resetBoard();
+    }
+
+    private void resetBoard()
+    {
+        board = new Board();
+        selectedShip = null;
+        orientation = ShipOrientation.Horizontal;
+        placedShips.Clear();
+        butReady.IsEnabled = false;
+        butReady.Text = "Ready";
+        butRotate.Text = "Rotate: Horizontal";
+        placementBoard.Clear();
+        placementBoard.RowDefinitions.Clear();
+        placementBoard.ColumnDefinitions.Clear();
+
+        foreach (var (type, (btn, badge)) in shipControls)
+        {
+            btn.IsEnabled = true;
+            btn.BackgroundColor = Color.FromArgb("#ADD8E6");
+            btn.BorderColor = Colors.Transparent;
+            btn.BorderWidth = 0;
+            badge.IsVisible = false;
+        }
+
         BuildBoard();
     }
 
@@ -46,8 +87,30 @@ public partial class ShipPlacementPage : ContentPage
         }
     }
 
-    private void ShipButton_Clicked(object sender, EventArgs e)
+    private void SetSelectedShip(ShipType? newType)
     {
+        foreach (var (type, (btn, _)) in shipControls)
+        {
+            if (!placedShips.Contains(type))
+            {
+                btn.BackgroundColor = Color.FromArgb("#ADD8E6");
+                btn.BorderColor = Colors.Transparent;
+                btn.BorderWidth = 0;
+            }
+        }
+
+        if (newType is null) return;
+
+        var selected = shipControls[newType.Value].btn;
+        selected.BackgroundColor = Color.FromArgb("#87CEEB");
+        selected.BorderColor = Color.FromArgb("#FFD700");
+        selected.BorderWidth = 3;
+    }
+
+    private async void ShipButton_Clicked(object sender, EventArgs e)
+    {
+        await SoundService.PlayClickAsync();
+
         var btn = sender as Button;
         ShipType type = btn.Text switch
         {
@@ -60,11 +123,22 @@ public partial class ShipPlacementPage : ContentPage
         };
 
         if (placedShips.Contains(type)) return;
+
+        if (selectedShip?.Type == type)
+        {
+            selectedShip = null;
+            SetSelectedShip(null);
+            return;
+        }
+
         selectedShip = new Ship(type);
+        SetSelectedShip(type);
     }
 
-    private void butRotate_Clicked(object sender, EventArgs e)
+    private async void butRotate_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         orientation = orientation == ShipOrientation.Horizontal
             ? ShipOrientation.Vertical
             : ShipOrientation.Horizontal;
@@ -74,6 +148,8 @@ public partial class ShipPlacementPage : ContentPage
 
     private async void OnCellClicked(int row, int col)
     {
+        await SoundService.PlayClickAsync();
+
         if (selectedShip == null) return;
 
         bool placed = board.PlaceShip(selectedShip, row, col, orientation);
@@ -87,6 +163,12 @@ public partial class ShipPlacementPage : ContentPage
         foreach (var cell in selectedShip.Cells)
             buttons[cell.Row, cell.Col].BackgroundColor = Colors.Gray;
 
+        var (btn, badge) = shipControls[selectedShip.Type];
+        btn.IsEnabled = false;
+        btn.BackgroundColor = Color.FromArgb("#555555");
+        btn.BorderWidth = 0;
+        badge.IsVisible = true;
+
         placedShips.Add(selectedShip.Type);
         selectedShip = null;
 
@@ -96,6 +178,8 @@ public partial class ShipPlacementPage : ContentPage
 
     private async void butReady_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         butReady.IsEnabled = false;
         butReady.Text = "Waiting for opponent...";
         SessionService.PlayerBoard = board;

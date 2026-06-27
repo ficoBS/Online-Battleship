@@ -23,6 +23,8 @@ public partial class LeaderboardPage : ContentPage
 
     private async void butBack_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await Shell.Current.GoToAsync("//MainPage");
     }
 }
