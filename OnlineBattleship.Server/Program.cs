@@ -54,3 +54,5 @@ using (var scope = app.Services.CreateScope())
 
 app.MapHub<OnlineBattleship.Server.Hubs.GameHub>("/gamehub");
 app.Run();
+
+//hey
