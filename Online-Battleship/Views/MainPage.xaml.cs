@@ -18,6 +18,8 @@ public partial class MainPage : ContentPage
 
     private async void butLogout_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await SessionService.Api.Logout(SessionService.UserId);
         await SessionService.Hub.Disconnect();
         SessionService.Clear();
@@ -26,6 +28,8 @@ public partial class MainPage : ContentPage
 
     private async void butFindMatch_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await Shell.Current.GoToAsync("//MatchPage");
     }
 
@@ -36,16 +40,22 @@ public partial class MainPage : ContentPage
 
     private async void butPlayers_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await Shell.Current.GoToAsync("//PlayersPage");
     }
 
     private async void butLeaderboard_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await Shell.Current.GoToAsync("//LeaderboardPage");
     }
 
     private async void butHistory_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await Shell.Current.GoToAsync("//MatchHistoryPage");
     }
 }

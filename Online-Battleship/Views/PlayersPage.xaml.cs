@@ -23,11 +23,15 @@ public partial class PlayersPage : ContentPage
 
     private async void butBack_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await Shell.Current.GoToAsync("//MainPage");
     }
 
     private async void OnChallengeClicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         var btn = sender as Button;
         var player = btn?.BindingContext as PlayerDto;
         if (player == null) return;

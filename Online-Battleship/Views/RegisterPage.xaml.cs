@@ -9,8 +9,19 @@ public partial class RegisterPage : ContentPage
         InitializeComponent();
     }
 
+    private void clearEntry()
+    {
+        usernameEntry.Text = "";
+        emailEntry.Text = "";
+        passwordEntry1.Text = "";
+        passwordEntry2.Text = "";
+        birthPicker.Date = DateTime.Now;
+    }
+
     private async void butRegister_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         string username = usernameEntry.Text?.Trim();
         string email = emailEntry.Text?.Trim();
         string password1 = passwordEntry1.Text;
@@ -44,10 +55,14 @@ public partial class RegisterPage : ContentPage
 
         await DisplayAlert("Success", "Account created! Please login.", "OK");
         await Shell.Current.GoToAsync("//LoginPage");
+        clearEntry();
     }
 
     private async void butBack_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await Shell.Current.GoToAsync("//LoginPage");
+        clearEntry();
     }
 }

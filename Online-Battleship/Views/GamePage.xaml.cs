@@ -15,12 +15,34 @@ public partial class GamePage : ContentPage
         InitializeComponent();
         BuildBoard(playerBoard, playerButtons, isEnemy: false);
         BuildBoard(enemyBoard, enemyButtons, isEnemy: true);
-        ShowPlayerShips();
 
         SessionService.Hub.OnOpponentShot += OnOpponentShot;
         SessionService.Hub.OnShotResult += OnShotResult;
         SessionService.Hub.OnReceiveMessage += OnReceiveMessage;
         SessionService.Hub.OnGameEnded += OnGameEnded;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        resetBoard();
+        ShowPlayerShips();
+    }
+
+    private void resetBoard()
+    {
+        var defaultColor = Color.FromArgb("#1a6fa8");
+
+        for (int row = 0; row < BoardSize; row++)
+            for (int col = 0; col < BoardSize; col++)
+            {
+                playerButtons[row, col].BackgroundColor = defaultColor;
+                playerButtons[row, col].IsEnabled = true;
+                enemyButtons[row, col].BackgroundColor = defaultColor;
+                enemyButtons[row, col].IsEnabled = true;
+            }
+
+        chatLog.Children.Clear();
     }
 
     private void ShowPlayerShips()
@@ -83,6 +105,7 @@ public partial class GamePage : ContentPage
 
             if (result == Models.CellState.Hit)
             {
+                await SoundService.PlayHitAsync();
                 cell.BackgroundColor = Colors.Red;
                 AddLog($"Enemy hit at {(char)('A' + col)}{row + 1}!", Colors.Red);
                 await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Hit");
@@ -92,6 +115,7 @@ public partial class GamePage : ContentPage
             }
             else
             {
+                await SoundService.PlayMissAsync();
                 cell.BackgroundColor = Colors.White;
                 AddLog($"Enemy missed at {(char)('A' + col)}{row + 1}", Colors.Gray);
                 await SessionService.Hub.ShotResult(SessionService.CurrentGameId, row, col, "Miss");

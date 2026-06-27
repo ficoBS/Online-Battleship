@@ -9,8 +9,16 @@ public partial class LoginPage : ContentPage
         InitializeComponent();
     }
 
+    private void clearEntry()
+    {
+        emailEntry.Text = "";
+        passwordEntry.Text = "";
+    }
+
     private async void butLogin_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         string email = emailEntry.Text?.Trim();
         string password = passwordEntry.Text;
 
@@ -43,11 +51,15 @@ public partial class LoginPage : ContentPage
 
         butLogin.IsEnabled = true;
         butLogin.Text = "Login";
+        clearEntry();
     }
 
     private async void butCreateAccount_Clicked(object sender, EventArgs e)
     {
+        await SoundService.PlayClickAsync();
+
         await Shell.Current.GoToAsync("//RegisterPage");
+        clearEntry();
     }
 
     private void butLeave_Clicked(object sender, EventArgs e)
