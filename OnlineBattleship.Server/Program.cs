@@ -11,16 +11,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-    if (databaseUrl != null)
-    {
-        var dataSourceBuilder = new Npgsql.NpgsqlDataSourceBuilder(databaseUrl);
-        options.UseNpgsql(dataSourceBuilder.Build());
-    }
-    else
-    {
-        options.UseNpgsql("Host=localhost;Database=battleship;Username=postgres;Password=postgres");
-    }
+    var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+        ?? "Host=localhost;Database=battleship;Username=postgres;Password=postgres";
+    options.UseNpgsql(connectionString);
 });
 
 builder.Services.AddScoped<AuthService>();
